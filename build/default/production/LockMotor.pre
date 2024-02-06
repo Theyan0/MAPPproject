@@ -5410,79 +5410,206 @@ extern void lcd_write_data(char data);
 # 3 "keypad.h"
 extern char getkey(void);
 
-# 6 "LockMotor.c"
+# 4 "C:\Program Files (x86)\Microchip\xc8\v1.35\include\__size_t.h"
+typedef unsigned size_t;
+
+# 7 "C:\Program Files (x86)\Microchip\xc8\v1.35\include\stdarg.h"
+typedef void * va_list[1];
+
+#pragma intrinsic(__va_start)
+extern void * __va_start(void);
+
+#pragma intrinsic(__va_arg)
+extern void * __va_arg(void *, ...);
+
+# 43 "C:\Program Files (x86)\Microchip\xc8\v1.35\include\stdio.h"
+struct __prbuf
+{
+char * ptr;
+void (* func)(char);
+};
+
+# 25 "C:\Program Files (x86)\Microchip\xc8\v1.35\include\errno.h"
+extern int errno;
+
+# 12 "C:\Program Files (x86)\Microchip\xc8\v1.35\include\conio.h"
+extern void init_uart(void);
+
+extern char getch(void);
+extern char getche(void);
+extern void putch(char);
+extern void ungetch(char);
+
+extern __bit kbhit(void);
+
+# 23
+extern char * cgets(char *);
+extern void cputs(const char *);
+
+# 88 "C:\Program Files (x86)\Microchip\xc8\v1.35\include\stdio.h"
+extern int cprintf(char *, ...);
+#pragma printf_check(cprintf)
+
+
+
+extern int _doprnt(struct __prbuf *, const register char *, register va_list);
+
+
+# 180
+#pragma printf_check(vprintf) const
+#pragma printf_check(vsprintf) const
+
+extern char * gets(char *);
+extern int puts(const char *);
+extern int scanf(const char *, ...) __attribute__((unsupported("scanf() is not supported by this compiler")));
+extern int sscanf(const char *, const char *, ...) __attribute__((unsupported("sscanf() is not supported by this compiler")));
+extern int vprintf(const char *, va_list) __attribute__((unsupported("vprintf() is not supported by this compiler")));
+extern int vsprintf(char *, const char *, va_list) __attribute__((unsupported("vsprintf() is not supported by this compiler")));
+extern int vscanf(const char *, va_list ap) __attribute__((unsupported("vscanf() is not supported by this compiler")));
+extern int vsscanf(const char *, const char *, va_list) __attribute__((unsupported("vsscanf() is not supported by this compiler")));
+
+#pragma printf_check(printf) const
+#pragma printf_check(sprintf) const
+extern int sprintf(char *, const char *, ...);
+extern int printf(const char *, ...);
+
+# 14 "C:\Program Files (x86)\Microchip\xc8\v1.35\include\string.h"
+extern void * memcpy(void *, const void *, size_t);
+extern void * memmove(void *, const void *, size_t);
+extern void * memset(void *, int, size_t);
+
+# 34
+extern char * strcat(char *, const char *);
+extern char * strcpy(char *, const char *);
+extern char * strncat(char *, const char *, size_t);
+extern char * strncpy(char *, const char *, size_t);
+extern char * strdup(const char *);
+extern char * strtok(char *, const char *);
+
+
+extern int memcmp(const void *, const void *, size_t);
+extern int strcmp(const char *, const char *);
+extern int stricmp(const char *, const char *);
+extern int strncmp(const char *, const char *, size_t);
+extern int strnicmp(const char *, const char *, size_t);
+extern void * memchr(const void *, int, size_t);
+extern size_t strcspn(const char *, const char *);
+extern char * strpbrk(const char *, const char *);
+extern size_t strspn(const char *, const char *);
+extern char * strstr(const char *, const char *);
+extern char * stristr(const char *, const char *);
+extern char * strerror(int);
+extern size_t strlen(const char *);
+extern char * strchr(const char *, int);
+extern char * strichr(const char *, int);
+extern char * strrchr(const char *, int);
+extern char * strrichr(const char *, int);
+
+# 21 "USART_Header_File.h"
+void USART_Init(long);
+void USART_TxChar(char);
+char USART_RxChar();
+void USART_SendString(const char *);
+void MSdelay(unsigned int val);
+
+# 12 "C:\Program Files (x86)\Microchip\xc8\v1.35\include\stdbool.h"
+typedef unsigned char bool;
+
+
+# 11 "LockMotor.c"
+#pragma config FOSC = HS
+#pragma config WDT = OFF
+#pragma config LVP = OFF
+#pragma config PBADEN = OFF
+
+
+
 unsigned char key, outchar;
 unsigned char p1, p2, p3, p4;
 char Message1[] = "Enter PIN number :  ";
+int wrong = 0;
 
-void clearScreen() {
-int i;
-for (i = 0; i < 20; i++) {
-lcd_write_cmd(0x80 + i);
-lcd_write_data(' ');
-lcd_write_cmd(0xC0 + i);
-lcd_write_data(' ');
+
+void UART_Init(void) {
+TRISCbits.TRISC6 = 0;
+TRISCbits.TRISC7 = 1;
+
+TXSTA = 0x24;
+RCSTA = 0x90;
+BAUDCON = 0x08;
+SPBRG = 77;
+SPBRGH = 0;
+PIR1bits.TXIF = 0;
 }
+
+void UART_Write(char data) {
+while (!TRMT);
+TXREG = data;
 }
 
 
 
-void LockMotor() {
-int i;
+void LockMotor(void) {
+unsigned char key, p1, p2, p3, p4;
+
+
 lcd_init();
-TRISCbits.TRISC2 = 0;
-TRISCbits.TRISC1 = 0;
+UART_Init();
 
 
-lcd_write_cmd(0x80);
-for (i = 0; i < 20; i++) {
-outchar = Message1[i];
-lcd_write_data(outchar);
-}
+lcd_backlight_on();
 
-lcd_write_cmd(0xC0);
-
-key = getkey();
-p1 = key;
-lcd_write_data('*');
-
-key = getkey();
-p2 = key;
-lcd_write_data('*');
-
-key = getkey();
-p3 = key;
-lcd_write_data('*');
-
-key = getkey();
-p4 = key;
-lcd_write_data('*');
 
 lcd_write_cmd(0x01);
 
-if (p1 == '4' && p2 == '5' && p3 == '5' && p4 == '0') {
-lcd_write_data(0x80);
-lcd_write_data('O');
-lcd_write_data('P');
-lcd_write_data('E');
-lcd_write_data('N');
-lcd_write_data(0x20);
 
+lcd_write_cmd(0x80);
+char Message1[] = "Enter PIN number :  ";
+for (int i = 0; Message1[i] != '\0'; i++) {
+lcd_write_data(Message1[i]);
+}
+
+
+lcd_write_cmd(0xC0);
+p1 = getkey(); lcd_write_data('*');
+p2 = getkey(); lcd_write_data('*');
+p3 = getkey(); lcd_write_data('*');
+p4 = getkey(); lcd_write_data('*');
+
+
+if (p1 == '4' && p2 == '5' && p3 == '5' && p4 == '0') {
+
+lcd_write_cmd(0x01);
+lcd_write_cmd(0x80);
+char openMsg[] = "OPENING LOCK";
+for (int i = 0; openMsg[i] != '\0'; i++) {
+lcd_write_data(openMsg[i]);
+}
 delay_ms(1000);
 motorlock_unlock();
 delay_ms(5000);
 motordoor_open();
 delay_ms(1000);
 lcd_write_cmd(0x01);
+wrong=0;
 } else {
-lcd_write_data(0x80);
-lcd_write_data('W');
-lcd_write_data('R');
-lcd_write_data('O');
-lcd_write_data('N');
-lcd_write_data('G');
+
+wrong++;
+lcd_write_cmd(0x01);
+lcd_write_cmd(0x80);
+char errorMsg[] = "WRONG PIN";
+for (int i = 0; errorMsg[i] != '\0'; i++) {
+lcd_write_data(errorMsg[i]);
+}
+lcd_write_data(wrong);
 
 delay_ms(2000);
-lcd_write_cmd(0x01);
+
+
+}
+if (wrong >= 3) {
+
+UART_Write('1');
+
 }
 }

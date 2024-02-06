@@ -5415,6 +5415,6 @@ void main(void) {
 TRISC = 0b00000010;
 
 while(1){
-UltraSound();
+LockMotor();
 }
 }

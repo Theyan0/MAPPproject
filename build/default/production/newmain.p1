@@ -3,7 +3,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 "4394 C:\Program Files (x86)\Microchip\xc8\v1.35\include\pic18f4550.h
 [v _TRISC `Vuc ~T0 @X0 0 e@3988 ]
 "11 newmain.c
-[v _UltraSound `(i ~T0 @X0 0 ef ]
+[v _LockMotor `(i ~T0 @X0 0 ef ]
 [; ;htc.h: 26: extern const char __xc8_OPTIM_SPEED;
 [; ;htc.h: 28: extern double __fpnormalize(double);
 [; ;xc8debug.h: 14: extern void __builtin_software_breakpoint(void);
@@ -4166,9 +4166,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 "10
 [e :U 559 ]
 {
-[; ;newmain.c: 11: UltraSound();
+[; ;newmain.c: 11: LockMotor();
 "11
-[e ( _UltraSound ..  ]
+[e ( _LockMotor ..  ]
 "12
 }
 [e :U 558 ]
