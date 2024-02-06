@@ -9,6 +9,7 @@
       <itemPath>delays.h</itemPath>
       <itemPath>lcd.h</itemPath>
       <itemPath>keypad.h</itemPath>
+      <itemPath>USART_Header_File.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
