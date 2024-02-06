@@ -1,13 +1,18 @@
 Version 3.2 HI-TECH Software Intermediate Code
-"4394 C:\Program Files (x86)\Microchip\xc8\v1.35\include\pic18f4550.h
-[v _TRISC `Vuc ~T0 @X0 0 e@3988 ]
-"7173
+"7173 C:\Program Files (x86)\Microchip\xc8\v1.35\include\pic18f4550.h
 [v _ADCON1 `Vuc ~T0 @X0 0 e@4033 ]
-"10845
-[v _TRISA0 `Vb ~T0 @X0 0 e@31888 ]
-"7 lcd.h
-[v _lcd_init `(v ~T0 @X0 0 ef ]
-"10
+"3987
+[s S292 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S292 . TRISA0 TRISA1 TRISA2 TRISA3 TRISA4 TRISA5 TRISA6 ]
+"3996
+[s S293 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S293 . RA0 RA1 RA2 RA3 RA4 RA5 RA6 ]
+"3986
+[u S291 `S292 1 `S293 1 ]
+[n S291 . . . ]
+"4006
+[v _TRISAbits `VS291 ~T0 @X0 0 e@3986 ]
+"10 lcd.h
 [v _lcd_write_cmd `(v ~T0 @X0 0 ef1`uc ]
 "2577 C:\Program Files (x86)\Microchip\xc8\v1.35\include\pic18f4550.h
 [s S193 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
@@ -37,8 +42,10 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _PORTAbits `VS192 ~T0 @X0 0 e@3968 ]
 "5 delays.h
 [v _delay_ms `(v ~T0 @X0 0 ef1`ui ]
-"27 PIR.c
-[v _motorlock_right `(i ~T0 @X0 0 ef ]
+"17 PIR.c
+[v _motordoor_close `(i ~T0 @X0 0 ef ]
+"19
+[v _motorlock_lock `(i ~T0 @X0 0 ef ]
 [; ;htc.h: 26: extern const char __xc8_OPTIM_SPEED;
 [; ;htc.h: 28: extern double __fpnormalize(double);
 [; ;xc8debug.h: 14: extern void __builtin_software_breakpoint(void);
@@ -4190,75 +4197,59 @@ Version 3.2 HI-TECH Software Intermediate Code
 "4 PIR.c
 [v _c `uc ~T0 @X0 1 e ]
 [; ;PIR.c: 4: unsigned char c;
-"7
-[v _initializePWM `(v ~T0 @X0 1 ef ]
-{
-[; ;PIR.c: 7: void initializePWM() {
-[e :U _initializePWM ]
-[f ]
-[; ;PIR.c: 8: TRISC = 0x00;
 "8
-[e = _TRISC -> -> 0 `i `uc ]
-[; ;PIR.c: 9: }
-"9
-[e :UE 557 ]
-}
-"12
 [v _PIR `(v ~T0 @X0 1 ef ]
 {
-[; ;PIR.c: 12: void PIR() {
+[; ;PIR.c: 8: void PIR() {
 [e :U _PIR ]
 [f ]
-[; ;PIR.c: 13: ADCON1 = 0x0F;
-"13
+[; ;PIR.c: 9: ADCON1 = 0x0F;
+"9
 [e = _ADCON1 -> -> 15 `i `uc ]
-[; ;PIR.c: 14: TRISA0 = 1;
-"14
-[e = _TRISA0 -> -> 1 `i `b ]
-[; ;PIR.c: 15: initializePWM();
-"15
-[e ( _initializePWM ..  ]
-[; ;PIR.c: 16: lcd_init();
-"16
-[e ( _lcd_init ..  ]
-[; ;PIR.c: 18: while(1) {
-"18
-[e :U 560 ]
-{
-[; ;PIR.c: 20: lcd_write_cmd(0xC0);
-"20
-[e ( _lcd_write_cmd (1 -> -> 192 `i `uc ]
-[; ;PIR.c: 21: if (PORTAbits.RA0 == 0) {
-"21
-[e $ ! == -> . . _PORTAbits 0 0 `i -> 0 `i 562  ]
-{
-[; ;PIR.c: 23: delay_ms(500);
-"23
-[e ( _delay_ms (1 -> -> 500 `i `ui ]
-"25
-}
-[; ;PIR.c: 25: } else {
-[e $U 563  ]
-[e :U 562 ]
-{
-[; ;PIR.c: 27: motorlock_right();
-"27
-[e ( _motorlock_right ..  ]
-[; ;PIR.c: 28: delay_ms(500);
-"28
-[e ( _delay_ms (1 -> -> 500 `i `ui ]
-"29
-}
-[e :U 563 ]
-"31
-}
+[; ;PIR.c: 10: TRISAbits.TRISA0 = 1;
+"10
+[e = . . _TRISAbits 0 0 -> -> 1 `i `uc ]
+[; ;PIR.c: 12: while(1) {
+"12
 [e :U 559 ]
-"18
-[e $U 560  ]
+{
+[; ;PIR.c: 13: lcd_write_cmd(0xC0);
+"13
+[e ( _lcd_write_cmd (1 -> -> 192 `i `uc ]
+[; ;PIR.c: 14: if (PORTAbits.RA0 == 0) {
+"14
+[e $ ! == -> . . _PORTAbits 0 0 `i -> 0 `i 561  ]
+{
+[; ;PIR.c: 15: delay_ms(1000);
+"15
+[e ( _delay_ms (1 -> -> 1000 `i `ui ]
+"16
+}
+[; ;PIR.c: 16: } else {
+[e $U 562  ]
 [e :U 561 ]
-[; ;PIR.c: 29: }
-[; ;PIR.c: 31: }
-[; ;PIR.c: 32: }
-"32
-[e :UE 558 ]
+{
+[; ;PIR.c: 17: motordoor_close();
+"17
+[e ( _motordoor_close ..  ]
+[; ;PIR.c: 18: delay_ms(5000);
+"18
+[e ( _delay_ms (1 -> -> 5000 `i `ui ]
+[; ;PIR.c: 19: motorlock_lock();
+"19
+[e ( _motorlock_lock ..  ]
+"20
+}
+[e :U 562 ]
+"22
+}
+[e :U 558 ]
+"12
+[e $U 559  ]
+[e :U 560 ]
+[; ;PIR.c: 20: }
+[; ;PIR.c: 22: }
+[; ;PIR.c: 23: }
+"23
+[e :UE 557 ]
 }

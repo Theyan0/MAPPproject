@@ -8,6 +8,6 @@ void main(void) {
     TRISC = 0b00000010;
     
     while(1){
-        motordoor_right();
+        UltraSound();
     }
 }

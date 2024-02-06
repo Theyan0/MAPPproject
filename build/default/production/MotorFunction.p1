@@ -4544,10 +4544,10 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e :UE 587 ]
 }
 "94
-[v _motorlock_right `(i ~T0 @X0 1 ef ]
+[v _motorlock_unlock `(i ~T0 @X0 1 ef ]
 {
-[; ;MotorFunction.c: 94: int motorlock_right(){
-[e :U _motorlock_right ]
+[; ;MotorFunction.c: 94: int motorlock_unlock(){
+[e :U _motorlock_unlock ]
 [f ]
 "95
 [v _Period `i ~T0 @X0 1 a ]
@@ -4575,10 +4575,10 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e :UE 588 ]
 }
 "104
-[v _motorlock_left `(i ~T0 @X0 1 ef ]
+[v _motorlock_lock `(i ~T0 @X0 1 ef ]
 {
-[; ;MotorFunction.c: 104: int motorlock_left(){
-[e :U _motorlock_left ]
+[; ;MotorFunction.c: 104: int motorlock_lock(){
+[e :U _motorlock_lock ]
 [f ]
 "105
 [v _Period `i ~T0 @X0 1 a ]
@@ -4606,10 +4606,10 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e :UE 589 ]
 }
 "114
-[v _motordoor_right `(i ~T0 @X0 1 ef ]
+[v _motordoor_open `(i ~T0 @X0 1 ef ]
 {
-[; ;MotorFunction.c: 114: int motordoor_right(){
-[e :U _motordoor_right ]
+[; ;MotorFunction.c: 114: int motordoor_open(){
+[e :U _motordoor_open ]
 [f ]
 "115
 [v _Period `i ~T0 @X0 1 a ]
@@ -4637,10 +4637,10 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e :UE 590 ]
 }
 "124
-[v _motordoor_left `(i ~T0 @X0 1 ef ]
+[v _motordoor_close `(i ~T0 @X0 1 ef ]
 {
-[; ;MotorFunction.c: 124: int motordoor_left(){
-[e :U _motordoor_left ]
+[; ;MotorFunction.c: 124: int motordoor_close(){
+[e :U _motordoor_close ]
 [f ]
 "125
 [v _Period `i ~T0 @X0 1 a ]

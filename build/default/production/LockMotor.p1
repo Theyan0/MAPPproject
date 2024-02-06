@@ -24,7 +24,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 "5 delays.h
 [v _delay_ms `(v ~T0 @X0 0 ef1`ui ]
 "64 LockMotor.c
-[v _motorlock_right `(i ~T0 @X0 0 ef ]
+[v _motorlock_unlock `(i ~T0 @X0 0 ef ]
+"66
+[v _motordoor_open `(i ~T0 @X0 0 ef ]
 [; ;htc.h: 26: extern const char __xc8_OPTIM_SPEED;
 [; ;htc.h: 28: extern double __fpnormalize(double);
 [; ;xc8debug.h: 14: extern void __builtin_software_breakpoint(void);
@@ -4337,9 +4339,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;LockMotor.c: 51: lcd_write_data('*');
 "51
 [e ( _lcd_write_data (1 -> -> 42 `ui `uc ]
-[; ;LockMotor.c: 53: clearScreen();
+[; ;LockMotor.c: 53: lcd_write_cmd(0x01);
 "53
-[e ( _clearScreen ..  ]
+[e ( _lcd_write_cmd (1 -> -> 1 `i `uc ]
 [; ;LockMotor.c: 55: if (p1 == '4' && p2 == '5' && p3 == '5' && p4 == '0') {
 "55
 [e $ ! && && && == -> _p1 `ui -> 52 `ui == -> _p2 `ui -> 53 `ui == -> _p3 `ui -> 53 `ui == -> _p4 `ui -> 48 `ui 565  ]
@@ -4365,50 +4367,56 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;LockMotor.c: 63: delay_ms(1000);
 "63
 [e ( _delay_ms (1 -> -> 1000 `i `ui ]
-[; ;LockMotor.c: 64: motorlock_right();
+[; ;LockMotor.c: 64: motorlock_unlock();
 "64
-[e ( _motorlock_right ..  ]
-[; ;LockMotor.c: 65: delay_ms(1000);
+[e ( _motorlock_unlock ..  ]
+[; ;LockMotor.c: 65: delay_ms(5000);
 "65
-[e ( _delay_ms (1 -> -> 1000 `i `ui ]
-[; ;LockMotor.c: 66: clearScreen();
+[e ( _delay_ms (1 -> -> 5000 `i `ui ]
+[; ;LockMotor.c: 66: motordoor_open();
 "66
-[e ( _clearScreen ..  ]
+[e ( _motordoor_open ..  ]
+[; ;LockMotor.c: 67: delay_ms(1000);
 "67
+[e ( _delay_ms (1 -> -> 1000 `i `ui ]
+[; ;LockMotor.c: 68: lcd_write_cmd(0x01);
+"68
+[e ( _lcd_write_cmd (1 -> -> 1 `i `uc ]
+"69
 }
-[; ;LockMotor.c: 67: } else {
+[; ;LockMotor.c: 69: } else {
 [e $U 566  ]
 [e :U 565 ]
 {
-[; ;LockMotor.c: 68: lcd_write_data(0x80);
-"68
-[e ( _lcd_write_data (1 -> -> 128 `i `uc ]
-[; ;LockMotor.c: 69: lcd_write_data('W');
-"69
-[e ( _lcd_write_data (1 -> -> 87 `ui `uc ]
-[; ;LockMotor.c: 70: lcd_write_data('R');
+[; ;LockMotor.c: 70: lcd_write_data(0x80);
 "70
-[e ( _lcd_write_data (1 -> -> 82 `ui `uc ]
-[; ;LockMotor.c: 71: lcd_write_data('O');
+[e ( _lcd_write_data (1 -> -> 128 `i `uc ]
+[; ;LockMotor.c: 71: lcd_write_data('W');
 "71
-[e ( _lcd_write_data (1 -> -> 79 `ui `uc ]
-[; ;LockMotor.c: 72: lcd_write_data('N');
+[e ( _lcd_write_data (1 -> -> 87 `ui `uc ]
+[; ;LockMotor.c: 72: lcd_write_data('R');
 "72
-[e ( _lcd_write_data (1 -> -> 78 `ui `uc ]
-[; ;LockMotor.c: 73: lcd_write_data('G');
+[e ( _lcd_write_data (1 -> -> 82 `ui `uc ]
+[; ;LockMotor.c: 73: lcd_write_data('O');
 "73
-[e ( _lcd_write_data (1 -> -> 71 `ui `uc ]
-[; ;LockMotor.c: 75: delay_ms(2000);
+[e ( _lcd_write_data (1 -> -> 79 `ui `uc ]
+[; ;LockMotor.c: 74: lcd_write_data('N');
+"74
+[e ( _lcd_write_data (1 -> -> 78 `ui `uc ]
+[; ;LockMotor.c: 75: lcd_write_data('G');
 "75
-[e ( _delay_ms (1 -> -> 2000 `i `ui ]
-[; ;LockMotor.c: 76: clearScreen();
-"76
-[e ( _clearScreen ..  ]
+[e ( _lcd_write_data (1 -> -> 71 `ui `uc ]
+[; ;LockMotor.c: 77: delay_ms(2000);
 "77
+[e ( _delay_ms (1 -> -> 2000 `i `ui ]
+[; ;LockMotor.c: 78: lcd_write_cmd(0x01);
+"78
+[e ( _lcd_write_cmd (1 -> -> 1 `i `uc ]
+"79
 }
 [e :U 566 ]
-[; ;LockMotor.c: 77: }
-[; ;LockMotor.c: 78: }
-"78
+[; ;LockMotor.c: 79: }
+[; ;LockMotor.c: 80: }
+"80
 [e :UE 561 ]
 }
