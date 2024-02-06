@@ -17,6 +17,7 @@ void PIR() {
             motordoor_close();
             delay_ms(5000);
             motorlock_lock();
+            delay_ms(500);
         }
 
     }

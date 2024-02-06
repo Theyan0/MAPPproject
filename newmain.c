@@ -9,5 +9,7 @@ void main(void) {
     
     while(1){
         UltraSound();
+        LockMotor();
+        
     }
 }
