@@ -17,19 +17,14 @@
 #define Timer2Prescale_4    4
 #define Timer2Prescale_16   16
 
-void PWM_Init()            /* Initialize PWM */
+void PWM1_Init()            /* Initialize PWM */
 {
-    TRISCbits.TRISC2 = 0;  /* Set CCP1 pin as output for PWM out */
+    ADCON1 = 0x0F;
+    TRISA = 0x00;  /* Set CCP1 pin as output for PWM out */
     CCP1CON = 0x0C;        /* Set PWM mode */
 }
 
-void PWMdoor_Init() {
-    TRISCbits.TRISC1 = 0;
-    CCP1CON = 0x0C; 
-}
-
-
-int setPeriodTo(unsigned long FPWM)/* Set period */
+int setPeriodTo1(unsigned long FPWM)/* Set period */
 {
     int clockSelectBits, TimerPrescaleBits;
     int TimerPrescaleValue;
@@ -59,7 +54,7 @@ int setPeriodTo(unsigned long FPWM)/* Set period */
     return (int)period;
 }
 
-void SetDutyCycleTo(float Duty_cycle, int Period)
+void SetDutyCycleTo1(float Duty_cycle, int Period)
 {
     int PWM10BitValue;
 
@@ -68,17 +63,8 @@ void SetDutyCycleTo(float Duty_cycle, int Period)
     CCP1CON = ((PWM10BitValue & 0x03) << 4) | 0x0C;
 }
 
-void doorSetDutyCycleTo(float Duty_cycle, int Period)
-{
-    int PWM10BitValue;
 
-    PWM10BitValue = 4.0 * ((float)Period + 1.0) * (Duty_cycle/100.0);
-    CCPR2L = (PWM10BitValue >> 2);
-    CCP2CON = ((PWM10BitValue & 0x03) << 4) | 0x0C;
-}
-
-
-void delay(unsigned int val)
+void delay1(unsigned int val)
 {
      unsigned int i,j;
         for(i=0;i<val;i++)
@@ -87,46 +73,29 @@ void delay(unsigned int val)
 
 int motor_init(){
     int Period;
-    PWM_Init();                /* Initialize PWM */
-    Period = setPeriodTo(50);
+    PWM1_Init();                /* Initialize PWM */
+    Period = setPeriodTo1(50);
 }
 
-int motorlock_unlock(){
+int motordoor_right(){
     int Period;
-    PWM_Init();                /* Initialize PWM */
-    Period = setPeriodTo(50);
-    SetDutyCycleTo(3.0, Period);/* 3% duty cycle */
-    delay(1000);
-    SetDutyCycleTo(7.0, Period); /* 7% duty cycle */
-    delay(1000);
+    PWM1_Init();                /* Initialize PWM */
+    Period = setPeriodTo1(50);
+    SetDutyCycleTo1(3.0, Period);/* 3% duty cycle */
+    delay1(1000);
+    SetDutyCycleTo1(7.0, Period); /* 7% duty cycle */
+    delay1(1000);
 }
 
-int motorlock_lock(){
+int motordoor_left(){
     int Period;
-    PWM_Init();                /* Initialize PWM */
-    Period = setPeriodTo(50);
-    SetDutyCycleTo(7.0, Period); /* 7% duty cycle */
-    delay(1000);
-    SetDutyCycleTo(12.0, Period);/* 12% duty cycle */
-    delay(1000);
+    PWM1_Init();                /* Initialize PWM */
+    Period = setPeriodTo1(50);
+    SetDutyCycleTo1(7.0, Period); /* 7% duty cycle */
+    delay1(1000);
+    SetDutyCycleTo1(12.0, Period);/* 12% duty cycle */
+    delay1(1000);
 }
 
-int motordoor_open(){
-    int Period;
-    PWMdoor_Init();
-    Period = setPeriodTo(50);
-    doorSetDutyCycleTo(3.0, Period);/* 3% duty cycle */
-    delay(1000);
-    doorSetDutyCycleTo(7.0, Period); /* 7% duty cycle */
-    delay(1000);
-}
 
-int motordoor_close(){
-    int Period;
-    PWMdoor_Init();/* Initialize PWM */
-    Period = setPeriodTo(50);
-    doorSetDutyCycleTo(7.0, Period); /* 7% duty cycle */
-    delay(1000);
-    doorSetDutyCycleTo(12.0, Period);/* 12% duty cycle */
-    delay(1000);
-}
+

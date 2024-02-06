@@ -4256,9 +4256,6 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;UltraSound.c: 34: lcd_backlight_on();
 "34
 [e ( _lcd_backlight_on ..  ]
-[; ;UltraSound.c: 35: break;
-"35
-[e $U 560  ]
 "36
 }
 [; ;UltraSound.c: 36: } else {
@@ -4268,21 +4265,18 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;UltraSound.c: 38: lcd_backlight_off();
 "38
 [e ( _lcd_backlight_off ..  ]
-[; ;UltraSound.c: 39: return;
 "39
-[e $UE 557  ]
-"40
 }
 [e :U 568 ]
-"41
+"40
 }
 [e :U 558 ]
 "10
 [e $U 559  ]
 [e :U 560 ]
+[; ;UltraSound.c: 39: }
 [; ;UltraSound.c: 40: }
 [; ;UltraSound.c: 41: }
-[; ;UltraSound.c: 42: }
-"42
+"41
 [e :UE 557 ]
 }

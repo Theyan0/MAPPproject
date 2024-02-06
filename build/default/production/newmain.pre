@@ -5393,7 +5393,28 @@ extern __nonreentrant void _delaywdt(unsigned long);
 #pragma intrinsic(_delay3)
 extern __nonreentrant void _delay3(unsigned char);
 
-# 4 "newmain.c"
+# 5 "delays.h"
+extern void delay_ms(unsigned int i);
+
+extern void delay_us(unsigned int i);
+
+# 3 "keypad.h"
+extern char getkey(void);
+
+# 7 "lcd.h"
+extern void lcd_init(void);
+
+
+extern void lcd_write_cmd(unsigned char cmd);
+
+
+extern void lcd_write_data(char data);
+
+# 7 "newmain.c"
 void main(void) {
-LockMotor();
+TRISC = 0b00000010;
+
+while(1){
+motordoor_right();
+}
 }

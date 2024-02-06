@@ -5438,11 +5438,10 @@ unsigned int distance_cm = Count / 58;
 if (distance_cm <= 5) {
 
 lcd_backlight_on();
-break;
+
 } else {
 
 lcd_backlight_off();
-return;
 }
 }
 }

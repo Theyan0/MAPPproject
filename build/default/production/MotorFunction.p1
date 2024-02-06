@@ -41,6 +41,10 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _T2CONbits `VS484 ~T0 @X0 0 e@4042 ]
 "7091
 [v _CCPR1L `Vuc ~T0 @X0 0 e@4030 ]
+"6912
+[v _CCPR2L `Vuc ~T0 @X0 0 e@4027 ]
+"6843
+[v _CCP2CON `Vuc ~T0 @X0 0 e@4026 ]
 [; ;pic18f4550.h: 49: extern volatile unsigned char SPPDATA @ 0xF62;
 "51 C:\Program Files (x86)\Microchip\xc8\v1.35\include\pic18f4550.h
 [; ;pic18f4550.h: 51: asm("SPPDATA equ 0F62h");
@@ -4248,312 +4252,418 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;MotorFunction.c: 21: {
 [e :U _PWM_Init ]
 [f ]
-[; ;MotorFunction.c: 23: TRISCbits.TRISC2 = 0;
-"23
+[; ;MotorFunction.c: 22: TRISCbits.TRISC2 = 0;
+"22
 [e = . . _TRISCbits 0 2 -> -> 0 `i `uc ]
-[; ;MotorFunction.c: 24: CCP1CON = 0x0C;
-"24
+[; ;MotorFunction.c: 23: CCP1CON = 0x0C;
+"23
 [e = _CCP1CON -> -> 12 `i `uc ]
-[; ;MotorFunction.c: 25: }
-"25
+[; ;MotorFunction.c: 24: }
+"24
 [e :UE 558 ]
 }
-"27
-[v _setPeriodTo `(i ~T0 @X0 1 ef1`ul ]
-"28
+"26
+[v _PWMdoor_Init `(v ~T0 @X0 1 ef ]
 {
-[; ;MotorFunction.c: 27: int setPeriodTo(unsigned long FPWM)
-[; ;MotorFunction.c: 28: {
-[e :U _setPeriodTo ]
-"27
-[v _FPWM `ul ~T0 @X0 1 r1 ]
-"28
+[; ;MotorFunction.c: 26: void PWMdoor_Init() {
+[e :U _PWMdoor_Init ]
 [f ]
+[; ;MotorFunction.c: 27: TRISCbits.TRISC1 = 0;
+"27
+[e = . . _TRISCbits 0 1 -> -> 0 `i `uc ]
+[; ;MotorFunction.c: 28: CCP1CON = 0x0C;
+"28
+[e = _CCP1CON -> -> 12 `i `uc ]
+[; ;MotorFunction.c: 29: }
 "29
+[e :UE 559 ]
+}
+"32
+[v _setPeriodTo `(i ~T0 @X0 1 ef1`ul ]
+"33
+{
+[; ;MotorFunction.c: 32: int setPeriodTo(unsigned long FPWM)
+[; ;MotorFunction.c: 33: {
+[e :U _setPeriodTo ]
+"32
+[v _FPWM `ul ~T0 @X0 1 r1 ]
+"33
+[f ]
+"34
 [v _clockSelectBits `i ~T0 @X0 1 a ]
 [v _TimerPrescaleBits `i ~T0 @X0 1 a ]
-"30
+"35
 [v _TimerPrescaleValue `i ~T0 @X0 1 a ]
-"31
+"36
 [v _period `f ~T0 @X0 1 a ]
-"32
+"37
 [v _FOSC `ul ~T0 @X0 1 a ]
 [v __resolution `ul ~T0 @X0 1 a ]
-[; ;MotorFunction.c: 29: int clockSelectBits, TimerPrescaleBits;
-[; ;MotorFunction.c: 30: int TimerPrescaleValue;
-[; ;MotorFunction.c: 31: float period;
-[; ;MotorFunction.c: 32: unsigned long FOSC, _resolution = 488;
+[; ;MotorFunction.c: 34: int clockSelectBits, TimerPrescaleBits;
+[; ;MotorFunction.c: 35: int TimerPrescaleValue;
+[; ;MotorFunction.c: 36: float period;
+[; ;MotorFunction.c: 37: unsigned long FOSC, _resolution = 488;
 [e = __resolution -> -> -> 488 `i `l `ul ]
-[; ;MotorFunction.c: 34: if (FPWM < 8000) {TimerPrescaleBits = 2; TimerPrescaleValue = 16;}
-"34
-[e $ ! < _FPWM -> -> -> 8000 `i `l `ul 560  ]
+[; ;MotorFunction.c: 39: if (FPWM < 8000) {TimerPrescaleBits = 2; TimerPrescaleValue = 16;}
+"39
+[e $ ! < _FPWM -> -> -> 8000 `i `l `ul 561  ]
 {
 [e = _TimerPrescaleBits -> 2 `i ]
 [e = _TimerPrescaleValue -> 16 `i ]
 }
-[e $U 561  ]
-"35
-[e :U 560 ]
-[; ;MotorFunction.c: 35: else {TimerPrescaleBits = 0; TimerPrescaleValue = 1;}
+[e $U 562  ]
+"40
+[e :U 561 ]
+[; ;MotorFunction.c: 40: else {TimerPrescaleBits = 0; TimerPrescaleValue = 1;}
 {
 [e = _TimerPrescaleBits -> 0 `i ]
 [e = _TimerPrescaleValue -> 1 `i ]
 }
-[e :U 561 ]
-[; ;MotorFunction.c: 37: if (FPWM > _resolution) {clockSelectBits = 7; FOSC = 8000000;}
-"37
-[e $ ! > _FPWM __resolution 562  ]
+[e :U 562 ]
+[; ;MotorFunction.c: 42: if (FPWM > _resolution) {clockSelectBits = 7; FOSC = 8000000;}
+"42
+[e $ ! > _FPWM __resolution 563  ]
 {
 [e = _clockSelectBits -> 7 `i ]
 [e = _FOSC -> -> 8000000 `l `ul ]
 }
-[e $U 563  ]
-"38
-[e :U 562 ]
-[; ;MotorFunction.c: 38: else if (FPWM > (_resolution >>= 1)) {clockSelectBits = 6; FOSC = 4000000;}
-[e $ ! > _FPWM =>> __resolution -> 1 `i 564  ]
+[e $U 564  ]
+"43
+[e :U 563 ]
+[; ;MotorFunction.c: 43: else if (FPWM > (_resolution >>= 1)) {clockSelectBits = 6; FOSC = 4000000;}
+[e $ ! > _FPWM =>> __resolution -> 1 `i 565  ]
 {
 [e = _clockSelectBits -> 6 `i ]
 [e = _FOSC -> -> 4000000 `l `ul ]
 }
-[e $U 565  ]
-"39
-[e :U 564 ]
-[; ;MotorFunction.c: 39: else if (FPWM > (_resolution >>= 1)) {clockSelectBits = 5; FOSC = 2000000;}
-[e $ ! > _FPWM =>> __resolution -> 1 `i 566  ]
+[e $U 566  ]
+"44
+[e :U 565 ]
+[; ;MotorFunction.c: 44: else if (FPWM > (_resolution >>= 1)) {clockSelectBits = 5; FOSC = 2000000;}
+[e $ ! > _FPWM =>> __resolution -> 1 `i 567  ]
 {
 [e = _clockSelectBits -> 5 `i ]
 [e = _FOSC -> -> 2000000 `l `ul ]
 }
-[e $U 567  ]
-"40
-[e :U 566 ]
-[; ;MotorFunction.c: 40: else if (FPWM > (_resolution >>= 1)) {clockSelectBits = 4; FOSC = 1000000;}
-[e $ ! > _FPWM =>> __resolution -> 1 `i 568  ]
+[e $U 568  ]
+"45
+[e :U 567 ]
+[; ;MotorFunction.c: 45: else if (FPWM > (_resolution >>= 1)) {clockSelectBits = 4; FOSC = 1000000;}
+[e $ ! > _FPWM =>> __resolution -> 1 `i 569  ]
 {
 [e = _clockSelectBits -> 4 `i ]
 [e = _FOSC -> -> 1000000 `l `ul ]
 }
-[e $U 569  ]
-"41
-[e :U 568 ]
-[; ;MotorFunction.c: 41: else if (FPWM > (_resolution >>= 1)) {clockSelectBits = 3; FOSC = 500000;}
-[e $ ! > _FPWM =>> __resolution -> 1 `i 570  ]
+[e $U 570  ]
+"46
+[e :U 569 ]
+[; ;MotorFunction.c: 46: else if (FPWM > (_resolution >>= 1)) {clockSelectBits = 3; FOSC = 500000;}
+[e $ ! > _FPWM =>> __resolution -> 1 `i 571  ]
 {
 [e = _clockSelectBits -> 3 `i ]
 [e = _FOSC -> -> 500000 `l `ul ]
 }
-[e $U 571  ]
-"42
-[e :U 570 ]
-[; ;MotorFunction.c: 42: else if (FPWM > (_resolution >>= 1)) {clockSelectBits = 2; FOSC = 250000;}
-[e $ ! > _FPWM =>> __resolution -> 1 `i 572  ]
+[e $U 572  ]
+"47
+[e :U 571 ]
+[; ;MotorFunction.c: 47: else if (FPWM > (_resolution >>= 1)) {clockSelectBits = 2; FOSC = 250000;}
+[e $ ! > _FPWM =>> __resolution -> 1 `i 573  ]
 {
 [e = _clockSelectBits -> 2 `i ]
 [e = _FOSC -> -> 250000 `l `ul ]
 }
-[e $U 573  ]
-"43
-[e :U 572 ]
-[; ;MotorFunction.c: 43: else if (FPWM > (_resolution >>= 1)) {clockSelectBits = 1; FOSC = 125000;}
-[e $ ! > _FPWM =>> __resolution -> 1 `i 574  ]
+[e $U 574  ]
+"48
+[e :U 573 ]
+[; ;MotorFunction.c: 48: else if (FPWM > (_resolution >>= 1)) {clockSelectBits = 1; FOSC = 125000;}
+[e $ ! > _FPWM =>> __resolution -> 1 `i 575  ]
 {
 [e = _clockSelectBits -> 1 `i ]
 [e = _FOSC -> -> 125000 `l `ul ]
 }
-[e $U 575  ]
-"44
-[e :U 574 ]
-[; ;MotorFunction.c: 44: else {clockSelectBits = 0; FOSC = 31000;}
+[e $U 576  ]
+"49
+[e :U 575 ]
+[; ;MotorFunction.c: 49: else {clockSelectBits = 0; FOSC = 31000;}
 {
 [e = _clockSelectBits -> 0 `i ]
 [e = _FOSC -> -> -> 31000 `i `l `ul ]
 }
-[e :U 575 ]
-[e :U 573 ]
-[e :U 571 ]
-[e :U 569 ]
-[e :U 567 ]
-[e :U 565 ]
-[e :U 563 ]
-[; ;MotorFunction.c: 46: period = ((float)FOSC / (4.0 * (float)TimerPrescaleValue * (float)FPWM)) - 1.0;
-"46
-[e = _period -> - / -> -> _FOSC `f `d * * .4.0 -> -> _TimerPrescaleValue `f `d -> -> _FPWM `f `d .1.0 `f ]
-[; ;MotorFunction.c: 47: period = round(period);
-"47
-[e = _period -> ( _round (1 -> _period `d `f ]
-[; ;MotorFunction.c: 49: OSCCON = ((clockSelectBits & 0x07) << 4) | 0x02;
-"49
-[e = _OSCCON -> | << & _clockSelectBits -> 7 `i -> 4 `i -> 2 `i `uc ]
-[; ;MotorFunction.c: 50: PR2 = (int)period;
-"50
-[e = _PR2 -> -> _period `i `uc ]
-[; ;MotorFunction.c: 51: T2CON = TimerPrescaleBits;
+[e :U 576 ]
+[e :U 574 ]
+[e :U 572 ]
+[e :U 570 ]
+[e :U 568 ]
+[e :U 566 ]
+[e :U 564 ]
+[; ;MotorFunction.c: 51: period = ((float)FOSC / (4.0 * (float)TimerPrescaleValue * (float)FPWM)) - 1.0;
 "51
-[e = _T2CON -> _TimerPrescaleBits `uc ]
-[; ;MotorFunction.c: 52: TMR2 = 0;
+[e = _period -> - / -> -> _FOSC `f `d * * .4.0 -> -> _TimerPrescaleValue `f `d -> -> _FPWM `f `d .1.0 `f ]
+[; ;MotorFunction.c: 52: period = round(period);
 "52
-[e = _TMR2 -> -> 0 `i `uc ]
-[; ;MotorFunction.c: 53: T2CONbits.TMR2ON = 1;
-"53
-[e = . . _T2CONbits 0 1 -> -> 1 `i `uc ]
-[; ;MotorFunction.c: 54: return (int)period;
+[e = _period -> ( _round (1 -> _period `d `f ]
+[; ;MotorFunction.c: 54: OSCCON = ((clockSelectBits & 0x07) << 4) | 0x02;
 "54
-[e ) -> _period `i ]
-[e $UE 559  ]
-[; ;MotorFunction.c: 55: }
+[e = _OSCCON -> | << & _clockSelectBits -> 7 `i -> 4 `i -> 2 `i `uc ]
+[; ;MotorFunction.c: 55: PR2 = (int)period;
 "55
-[e :UE 559 ]
-}
+[e = _PR2 -> -> _period `i `uc ]
+[; ;MotorFunction.c: 56: T2CON = TimerPrescaleBits;
+"56
+[e = _T2CON -> _TimerPrescaleBits `uc ]
+[; ;MotorFunction.c: 57: TMR2 = 0;
 "57
-[v _SetDutyCycleTo `(v ~T0 @X0 1 ef2`f`i ]
+[e = _TMR2 -> -> 0 `i `uc ]
+[; ;MotorFunction.c: 58: T2CONbits.TMR2ON = 1;
 "58
+[e = . . _T2CONbits 0 1 -> -> 1 `i `uc ]
+[; ;MotorFunction.c: 59: return (int)period;
+"59
+[e ) -> _period `i ]
+[e $UE 560  ]
+[; ;MotorFunction.c: 60: }
+"60
+[e :UE 560 ]
+}
+"62
+[v _SetDutyCycleTo `(v ~T0 @X0 1 ef2`f`i ]
+"63
 {
-[; ;MotorFunction.c: 57: void SetDutyCycleTo(float Duty_cycle, int Period)
-[; ;MotorFunction.c: 58: {
+[; ;MotorFunction.c: 62: void SetDutyCycleTo(float Duty_cycle, int Period)
+[; ;MotorFunction.c: 63: {
 [e :U _SetDutyCycleTo ]
-"57
+"62
 [v _Duty_cycle `f ~T0 @X0 1 r1 ]
 [v _Period `i ~T0 @X0 1 r2 ]
-"58
-[f ]
-"59
-[v _PWM10BitValue `i ~T0 @X0 1 a ]
-[; ;MotorFunction.c: 59: int PWM10BitValue;
-[; ;MotorFunction.c: 61: PWM10BitValue = 4.0 * ((float)Period + 1.0) * (Duty_cycle/100.0);
-"61
-[e = _PWM10BitValue -> * * .4.0 + -> -> _Period `f `d .1.0 / -> _Duty_cycle `d .100.0 `i ]
-[; ;MotorFunction.c: 62: CCPR1L = (PWM10BitValue >> 2);
-"62
-[e = _CCPR1L -> >> _PWM10BitValue -> 2 `i `uc ]
-[; ;MotorFunction.c: 63: CCP1CON = ((PWM10BitValue & 0x03) << 4) | 0x0C;
 "63
-[e = _CCP1CON -> | << & _PWM10BitValue -> 3 `i -> 4 `i -> 12 `i `uc ]
-[; ;MotorFunction.c: 64: }
-"64
-[e :UE 576 ]
-}
-"67
-[v _delay `(v ~T0 @X0 1 ef1`ui ]
-"68
-{
-[; ;MotorFunction.c: 67: void delay(unsigned int val)
-[; ;MotorFunction.c: 68: {
-[e :U _delay ]
-"67
-[v _val `ui ~T0 @X0 1 r1 ]
-"68
 [f ]
+"64
+[v _PWM10BitValue `i ~T0 @X0 1 a ]
+[; ;MotorFunction.c: 64: int PWM10BitValue;
+[; ;MotorFunction.c: 66: PWM10BitValue = 4.0 * ((float)Period + 1.0) * (Duty_cycle/100.0);
+"66
+[e = _PWM10BitValue -> * * .4.0 + -> -> _Period `f `d .1.0 / -> _Duty_cycle `d .100.0 `i ]
+[; ;MotorFunction.c: 67: CCPR1L = (PWM10BitValue >> 2);
+"67
+[e = _CCPR1L -> >> _PWM10BitValue -> 2 `i `uc ]
+[; ;MotorFunction.c: 68: CCP1CON = ((PWM10BitValue & 0x03) << 4) | 0x0C;
+"68
+[e = _CCP1CON -> | << & _PWM10BitValue -> 3 `i -> 4 `i -> 12 `i `uc ]
+[; ;MotorFunction.c: 69: }
 "69
-[v _i `ui ~T0 @X0 1 a ]
-[v _j `ui ~T0 @X0 1 a ]
-[; ;MotorFunction.c: 69: unsigned int i,j;
-[; ;MotorFunction.c: 70: for(i=0;i<val;i++)
-"70
-{
-[e = _i -> -> 0 `i `ui ]
-[e $U 581  ]
-"71
-[e :U 578 ]
-[; ;MotorFunction.c: 71: for(j=0;j<10;j++);
-{
-[e = _j -> -> 0 `i `ui ]
-[e $ < _j -> -> 10 `i `ui 582  ]
-[e $U 583  ]
-[e :U 582 ]
-[e ++ _j -> -> 1 `i `ui ]
-[e $ < _j -> -> 10 `i `ui 582  ]
-[e :U 583 ]
-}
-"70
-[e ++ _i -> -> 1 `i `ui ]
-[e :U 581 ]
-[e $ < _i _val 578  ]
-[e :U 579 ]
-"71
-}
-[; ;MotorFunction.c: 72: }
-"72
 [e :UE 577 ]
 }
-"74
-[v _motor_init `(i ~T0 @X0 1 ef ]
+"71
+[v _doorSetDutyCycleTo `(v ~T0 @X0 1 ef2`f`i ]
+"72
 {
-[; ;MotorFunction.c: 74: int motor_init(){
-[e :U _motor_init ]
+[; ;MotorFunction.c: 71: void doorSetDutyCycleTo(float Duty_cycle, int Period)
+[; ;MotorFunction.c: 72: {
+[e :U _doorSetDutyCycleTo ]
+"71
+[v _Duty_cycle `f ~T0 @X0 1 r1 ]
+[v _Period `i ~T0 @X0 1 r2 ]
+"72
 [f ]
+"73
+[v _PWM10BitValue `i ~T0 @X0 1 a ]
+[; ;MotorFunction.c: 73: int PWM10BitValue;
+[; ;MotorFunction.c: 75: PWM10BitValue = 4.0 * ((float)Period + 1.0) * (Duty_cycle/100.0);
 "75
-[v _Period `i ~T0 @X0 1 a ]
-[; ;MotorFunction.c: 75: int Period;
-[; ;MotorFunction.c: 76: PWM_Init();
+[e = _PWM10BitValue -> * * .4.0 + -> -> _Period `f `d .1.0 / -> _Duty_cycle `d .100.0 `i ]
+[; ;MotorFunction.c: 76: CCPR2L = (PWM10BitValue >> 2);
 "76
-[e ( _PWM_Init ..  ]
-[; ;MotorFunction.c: 77: Period = setPeriodTo(50);
+[e = _CCPR2L -> >> _PWM10BitValue -> 2 `i `uc ]
+[; ;MotorFunction.c: 77: CCP2CON = ((PWM10BitValue & 0x03) << 4) | 0x0C;
 "77
-[e = _Period ( _setPeriodTo (1 -> -> -> 50 `i `l `ul ]
+[e = _CCP2CON -> | << & _PWM10BitValue -> 3 `i -> 4 `i -> 12 `i `uc ]
 [; ;MotorFunction.c: 78: }
 "78
-[e :UE 585 ]
+[e :UE 578 ]
 }
-"80
+"81
+[v _delay `(v ~T0 @X0 1 ef1`ui ]
+"82
+{
+[; ;MotorFunction.c: 81: void delay(unsigned int val)
+[; ;MotorFunction.c: 82: {
+[e :U _delay ]
+"81
+[v _val `ui ~T0 @X0 1 r1 ]
+"82
+[f ]
+"83
+[v _i `ui ~T0 @X0 1 a ]
+[v _j `ui ~T0 @X0 1 a ]
+[; ;MotorFunction.c: 83: unsigned int i,j;
+[; ;MotorFunction.c: 84: for(i=0;i<val;i++)
+"84
+{
+[e = _i -> -> 0 `i `ui ]
+[e $U 583  ]
+"85
+[e :U 580 ]
+[; ;MotorFunction.c: 85: for(j=0;j<10;j++);
+{
+[e = _j -> -> 0 `i `ui ]
+[e $ < _j -> -> 10 `i `ui 584  ]
+[e $U 585  ]
+[e :U 584 ]
+[e ++ _j -> -> 1 `i `ui ]
+[e $ < _j -> -> 10 `i `ui 584  ]
+[e :U 585 ]
+}
+"84
+[e ++ _i -> -> 1 `i `ui ]
+[e :U 583 ]
+[e $ < _i _val 580  ]
+[e :U 581 ]
+"85
+}
+[; ;MotorFunction.c: 86: }
+"86
+[e :UE 579 ]
+}
+"88
+[v _motor_init `(i ~T0 @X0 1 ef ]
+{
+[; ;MotorFunction.c: 88: int motor_init(){
+[e :U _motor_init ]
+[f ]
+"89
+[v _Period `i ~T0 @X0 1 a ]
+[; ;MotorFunction.c: 89: int Period;
+[; ;MotorFunction.c: 90: PWM_Init();
+"90
+[e ( _PWM_Init ..  ]
+[; ;MotorFunction.c: 91: Period = setPeriodTo(50);
+"91
+[e = _Period ( _setPeriodTo (1 -> -> -> 50 `i `l `ul ]
+[; ;MotorFunction.c: 92: }
+"92
+[e :UE 587 ]
+}
+"94
 [v _motorlock_right `(i ~T0 @X0 1 ef ]
 {
-[; ;MotorFunction.c: 80: int motorlock_right(){
+[; ;MotorFunction.c: 94: int motorlock_right(){
 [e :U _motorlock_right ]
 [f ]
-"81
+"95
 [v _Period `i ~T0 @X0 1 a ]
-[; ;MotorFunction.c: 81: int Period;
-[; ;MotorFunction.c: 82: PWM_Init();
-"82
+[; ;MotorFunction.c: 95: int Period;
+[; ;MotorFunction.c: 96: PWM_Init();
+"96
 [e ( _PWM_Init ..  ]
-[; ;MotorFunction.c: 83: Period = setPeriodTo(50);
-"83
+[; ;MotorFunction.c: 97: Period = setPeriodTo(50);
+"97
 [e = _Period ( _setPeriodTo (1 -> -> -> 50 `i `l `ul ]
-[; ;MotorFunction.c: 84: SetDutyCycleTo(3.0, Period);
-"84
+[; ;MotorFunction.c: 98: SetDutyCycleTo(3.0, Period);
+"98
 [e ( _SetDutyCycleTo (2 , -> .3.0 `f _Period ]
-[; ;MotorFunction.c: 85: delay(1000);
-"85
+[; ;MotorFunction.c: 99: delay(1000);
+"99
 [e ( _delay (1 -> -> 1000 `i `ui ]
-[; ;MotorFunction.c: 86: SetDutyCycleTo(7.0, Period);
-"86
+[; ;MotorFunction.c: 100: SetDutyCycleTo(7.0, Period);
+"100
 [e ( _SetDutyCycleTo (2 , -> .7.0 `f _Period ]
-[; ;MotorFunction.c: 87: delay(1000);
-"87
+[; ;MotorFunction.c: 101: delay(1000);
+"101
 [e ( _delay (1 -> -> 1000 `i `ui ]
-[; ;MotorFunction.c: 88: }
-"88
-[e :UE 586 ]
+[; ;MotorFunction.c: 102: }
+"102
+[e :UE 588 ]
 }
-"89
+"104
 [v _motorlock_left `(i ~T0 @X0 1 ef ]
 {
-[; ;MotorFunction.c: 89: int motorlock_left(){
+[; ;MotorFunction.c: 104: int motorlock_left(){
 [e :U _motorlock_left ]
 [f ]
-"90
+"105
 [v _Period `i ~T0 @X0 1 a ]
-[; ;MotorFunction.c: 90: int Period;
-[; ;MotorFunction.c: 91: PWM_Init();
-"91
+[; ;MotorFunction.c: 105: int Period;
+[; ;MotorFunction.c: 106: PWM_Init();
+"106
 [e ( _PWM_Init ..  ]
-[; ;MotorFunction.c: 92: Period = setPeriodTo(50);
-"92
+[; ;MotorFunction.c: 107: Period = setPeriodTo(50);
+"107
 [e = _Period ( _setPeriodTo (1 -> -> -> 50 `i `l `ul ]
-[; ;MotorFunction.c: 93: SetDutyCycleTo(7.0, Period);
-"93
+[; ;MotorFunction.c: 108: SetDutyCycleTo(7.0, Period);
+"108
 [e ( _SetDutyCycleTo (2 , -> .7.0 `f _Period ]
-[; ;MotorFunction.c: 94: delay(1000);
-"94
+[; ;MotorFunction.c: 109: delay(1000);
+"109
 [e ( _delay (1 -> -> 1000 `i `ui ]
-[; ;MotorFunction.c: 95: SetDutyCycleTo(12.0, Period);
-"95
+[; ;MotorFunction.c: 110: SetDutyCycleTo(12.0, Period);
+"110
 [e ( _SetDutyCycleTo (2 , -> .12.0 `f _Period ]
-[; ;MotorFunction.c: 96: delay(1000);
-"96
+[; ;MotorFunction.c: 111: delay(1000);
+"111
 [e ( _delay (1 -> -> 1000 `i `ui ]
-[; ;MotorFunction.c: 97: }
-"97
-[e :UE 587 ]
+[; ;MotorFunction.c: 112: }
+"112
+[e :UE 589 ]
+}
+"114
+[v _motordoor_right `(i ~T0 @X0 1 ef ]
+{
+[; ;MotorFunction.c: 114: int motordoor_right(){
+[e :U _motordoor_right ]
+[f ]
+"115
+[v _Period `i ~T0 @X0 1 a ]
+[; ;MotorFunction.c: 115: int Period;
+[; ;MotorFunction.c: 116: PWMdoor_Init();
+"116
+[e ( _PWMdoor_Init ..  ]
+[; ;MotorFunction.c: 117: Period = setPeriodTo(50);
+"117
+[e = _Period ( _setPeriodTo (1 -> -> -> 50 `i `l `ul ]
+[; ;MotorFunction.c: 118: doorSetDutyCycleTo(3.0, Period);
+"118
+[e ( _doorSetDutyCycleTo (2 , -> .3.0 `f _Period ]
+[; ;MotorFunction.c: 119: delay(1000);
+"119
+[e ( _delay (1 -> -> 1000 `i `ui ]
+[; ;MotorFunction.c: 120: doorSetDutyCycleTo(7.0, Period);
+"120
+[e ( _doorSetDutyCycleTo (2 , -> .7.0 `f _Period ]
+[; ;MotorFunction.c: 121: delay(1000);
+"121
+[e ( _delay (1 -> -> 1000 `i `ui ]
+[; ;MotorFunction.c: 122: }
+"122
+[e :UE 590 ]
+}
+"124
+[v _motordoor_left `(i ~T0 @X0 1 ef ]
+{
+[; ;MotorFunction.c: 124: int motordoor_left(){
+[e :U _motordoor_left ]
+[f ]
+"125
+[v _Period `i ~T0 @X0 1 a ]
+[; ;MotorFunction.c: 125: int Period;
+[; ;MotorFunction.c: 126: PWMdoor_Init();
+"126
+[e ( _PWMdoor_Init ..  ]
+[; ;MotorFunction.c: 127: Period = setPeriodTo(50);
+"127
+[e = _Period ( _setPeriodTo (1 -> -> -> 50 `i `l `ul ]
+[; ;MotorFunction.c: 128: doorSetDutyCycleTo(7.0, Period);
+"128
+[e ( _doorSetDutyCycleTo (2 , -> .7.0 `f _Period ]
+[; ;MotorFunction.c: 129: delay(1000);
+"129
+[e ( _delay (1 -> -> 1000 `i `ui ]
+[; ;MotorFunction.c: 130: doorSetDutyCycleTo(12.0, Period);
+"130
+[e ( _doorSetDutyCycleTo (2 , -> .12.0 `f _Period ]
+[; ;MotorFunction.c: 131: delay(1000);
+"131
+[e ( _delay (1 -> -> 1000 `i `ui ]
+[; ;MotorFunction.c: 132: }
+"132
+[e :UE 591 ]
 }

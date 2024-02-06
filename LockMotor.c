@@ -50,7 +50,7 @@ void LockMotor() {
         p4 = key;
         lcd_write_data('*');
         
-        clearScreen();
+        lcd_write_cmd(0x01);
 
         if (p1 == '4' && p2 == '5' && p3 == '5' && p4 == '0') {
             lcd_write_data(0x80);
@@ -61,9 +61,11 @@ void LockMotor() {
             lcd_write_data(0x20);
             
             delay_ms(1000);
-            motorlock_right();
+            motorlock_unlock();
+            delay_ms(5000);
+            motordoor_open();
             delay_ms(1000);
-            clearScreen();
+            lcd_write_cmd(0x01);
         } else {
             lcd_write_data(0x80);
             lcd_write_data('W');
@@ -73,6 +75,6 @@ void LockMotor() {
             lcd_write_data('G');
             
             delay_ms(2000);
-            clearScreen();
+            lcd_write_cmd(0x01);
         }
 }

@@ -32,6 +32,7 @@ void UltraSound() {
         if (distance_cm <= 5) {
             // If someone is near (5cm or less), light up the LCD
             lcd_backlight_on();
+            
         } else {
 
             lcd_backlight_off();
