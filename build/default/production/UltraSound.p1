@@ -1,7 +1,5 @@
 Version 3.2 HI-TECH Software Intermediate Code
-"7173 C:\Program Files (x86)\Microchip\xc8\v1.35\include\pic18f4550.h
-[v _ADCON1 `Vuc ~T0 @X0 0 e@4033 ]
-"3987
+"3987 C:\Program Files (x86)\Microchip\xc8\v1.35\include\pic18f4550.h
 [s S292 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
 [n S292 . TRISA0 TRISA1 TRISA2 TRISA3 TRISA4 TRISA5 TRISA6 ]
 "3996
@@ -12,9 +10,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [n S291 . . . ]
 "4006
 [v _TRISAbits `VS291 ~T0 @X0 0 e@3986 ]
-"7 lcd.h
-[v _lcd_init `(v ~T0 @X0 0 ef ]
-"2577 C:\Program Files (x86)\Microchip\xc8\v1.35\include\pic18f4550.h
+"7173
+[v _ADCON1 `Vuc ~T0 @X0 0 e@4033 ]
+"2577
 [s S193 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
 [n S193 . RA0 RA1 RA2 RA3 RA4 RA5 RA6 ]
 "2586
@@ -40,13 +38,15 @@ Version 3.2 HI-TECH Software Intermediate Code
 [n S192 . . . . . . . . ]
 "2618
 [v _PORTAbits `VS192 ~T0 @X0 0 e@3968 ]
+"7 lcd.h
+[v _lcd_init `(v ~T0 @X0 0 ef ]
 "7 delays.h
 [v _delay_us `(v ~T0 @X0 0 ef1`ui ]
 "5
 [v _delay_ms `(v ~T0 @X0 0 ef1`ui ]
-"32 UltraSound.c
+"42 UltraSound.c
 [v _lcd_backlight_on `(i ~T0 @X0 0 ef ]
-"36
+"45
 [v _lcd_backlight_off `(i ~T0 @X0 0 ef ]
 [; ;htc.h: 26: extern const char __xc8_OPTIM_SPEED;
 [; ;htc.h: 28: extern double __fpnormalize(double);
@@ -4197,106 +4197,135 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;lcd.h: 10: extern void lcd_write_cmd(unsigned char cmd);
 [; ;lcd.h: 13: extern void lcd_write_data(char data);
 "5 UltraSound.c
-[v _UltraSound `(v ~T0 @X0 1 ef ]
+[v _ultra `(v ~T0 @X0 1 ef ]
 {
-[; ;UltraSound.c: 5: void UltraSound() {
-[e :U _UltraSound ]
+[; ;UltraSound.c: 5: void ultra() {
+[e :U _ultra ]
 [f ]
-[; ;UltraSound.c: 6: ADCON1 = 0x0F;
+[; ;UltraSound.c: 6: TRISAbits.TRISA1 = 1;
 "6
-[e = _ADCON1 -> -> 15 `i `uc ]
-[; ;UltraSound.c: 7: TRISAbits.TRISA1 = 0;
+[e = . . _TRISAbits 0 1 -> -> 1 `i `uc ]
+[; ;UltraSound.c: 7: TRISAbits.TRISA2 = 0;
 "7
-[e = . . _TRISAbits 0 1 -> -> 0 `i `uc ]
-[; ;UltraSound.c: 8: TRISAbits.TRISA2 = 1;
+[e = . . _TRISAbits 0 2 -> -> 0 `i `uc ]
+[; ;UltraSound.c: 8: TRISAbits.TRISA4 = 1;
 "8
-[e = . . _TRISAbits 0 2 -> -> 1 `i `uc ]
-[; ;UltraSound.c: 9: lcd_init();
+[e = . . _TRISAbits 0 4 -> -> 1 `i `uc ]
+[; ;UltraSound.c: 9: TRISAbits.TRISA3 = 0;
 "9
+[e = . . _TRISAbits 0 3 -> -> 0 `i `uc ]
+[; ;UltraSound.c: 10: ADCON1 = 0b00001111;
+"10
+[e = _ADCON1 -> -> 15 `i `uc ]
+[; ;UltraSound.c: 12: PORTAbits.RA4 = 0;
+"12
+[e = . . _PORTAbits 0 4 -> -> 0 `i `uc ]
+[; ;UltraSound.c: 14: lcd_init();
+"14
 [e ( _lcd_init ..  ]
-[; ;UltraSound.c: 11: while(1) {
-"11
+[; ;UltraSound.c: 16: while(1) {
+"16
 [e :U 559 ]
 {
-"12
-[v _Count `ui ~T0 @X0 1 a ]
-[; ;UltraSound.c: 12: unsigned int Count = 0;
-[e = _Count -> -> 0 `i `ui ]
-[; ;UltraSound.c: 14: PORTAbits.RA1 = 1;
-"14
-[e = . . _PORTAbits 0 1 -> -> 1 `i `uc ]
-[; ;UltraSound.c: 15: delay_us(10);
-"15
-[e ( _delay_us (1 -> -> 10 `i `ui ]
-[; ;UltraSound.c: 16: PORTAbits.RA1 = 0;
-"16
-[e = . . _PORTAbits 0 1 -> -> 0 `i `uc ]
-[; ;UltraSound.c: 17: delay_ms(1);
 "17
-[e ( _delay_ms (1 -> -> 1 `i `ui ]
-[; ;UltraSound.c: 20: while (PORTAbits.RA2 == 0);
+[v _Count `ui ~T0 @X0 1 a ]
+[; ;UltraSound.c: 17: unsigned int Count = 0;
+[e = _Count -> -> 0 `i `ui ]
+[; ;UltraSound.c: 20: PORTAbits.RA2 = 1;
 "20
+[e = . . _PORTAbits 0 2 -> -> 1 `i `uc ]
+[; ;UltraSound.c: 21: delay_us(10);
+"21
+[e ( _delay_us (1 -> -> 10 `i `ui ]
+[; ;UltraSound.c: 22: PORTAbits.RA2 = 0;
+"22
+[e = . . _PORTAbits 0 2 -> -> 0 `i `uc ]
+[; ;UltraSound.c: 23: delay_ms(1);
+"23
+[e ( _delay_ms (1 -> -> 1 `i `ui ]
+[; ;UltraSound.c: 26: while (PORTAbits.RA1 == 0);
+"26
 [e $U 561  ]
 [e :U 562 ]
 [e :U 561 ]
-[e $ == -> . . _PORTAbits 0 2 `i -> 0 `i 562  ]
+[e $ == -> . . _PORTAbits 0 1 `i -> 0 `i 562  ]
 [e :U 563 ]
-[; ;UltraSound.c: 21: Count = 0;
-"21
+[; ;UltraSound.c: 27: Count = 0;
+"27
 [e = _Count -> -> 0 `i `ui ]
-[; ;UltraSound.c: 23: while ((PORTAbits.RA2 == 1) && (Count < 200)) {
-"23
+[; ;UltraSound.c: 29: while ((PORTAbits.RA1 == 1) && (Count < 200)) {
+"29
 [e $U 564  ]
 [e :U 565 ]
 {
-[; ;UltraSound.c: 24: delay_us(58);
-"24
+[; ;UltraSound.c: 30: delay_us(58);
+"30
 [e ( _delay_us (1 -> -> 58 `i `ui ]
-[; ;UltraSound.c: 25: Count++;
-"25
+[; ;UltraSound.c: 31: Count++;
+"31
 [e ++ _Count -> -> 1 `i `ui ]
-"26
+"32
 }
 [e :U 564 ]
-"23
-[e $ && == -> . . _PORTAbits 0 2 `i -> 1 `i < _Count -> -> 200 `i `ui 565  ]
+"29
+[e $ && == -> . . _PORTAbits 0 1 `i -> 1 `i < _Count -> -> 200 `i `ui 565  ]
 [e :U 566 ]
-"28
-[v _distance_cm `ui ~T0 @X0 1 a ]
-[; ;UltraSound.c: 26: }
-[; ;UltraSound.c: 28: unsigned int distance_cm = Count / 58;
-[e = _distance_cm / _Count -> -> 58 `i `ui ]
-[; ;UltraSound.c: 30: if (distance_cm <= 5) {
-"30
-[e $ ! <= _distance_cm -> -> 5 `i `ui 567  ]
-{
-[; ;UltraSound.c: 32: lcd_backlight_on();
-"32
-[e ( _lcd_backlight_on ..  ]
+[; ;UltraSound.c: 32: }
+[; ;UltraSound.c: 34: PORTAbits.RA3 = 0;
 "34
-}
-[; ;UltraSound.c: 34: } else {
-[e $U 568  ]
-[e :U 567 ]
+[e = . . _PORTAbits 0 3 -> -> 0 `i `uc ]
+[; ;UltraSound.c: 35: while (PORTAbits.RA4 == 1 ) {
+"35
+[e $U 567  ]
+[e :U 568 ]
 {
-[; ;UltraSound.c: 36: lcd_backlight_off();
+[; ;UltraSound.c: 36: PORTAbits.RA3 = 1;
 "36
-[e ( _lcd_backlight_off ..  ]
-[; ;UltraSound.c: 37: break;
+[e = . . _PORTAbits 0 3 -> -> 1 `i `uc ]
+[; ;UltraSound.c: 37: delay_ms(100);
 "37
-[e $U 560  ]
+[e ( _delay_ms (1 -> -> 100 `i `ui ]
 "38
 }
-[e :U 568 ]
-"39
+[e :U 567 ]
+"35
+[e $ == -> . . _PORTAbits 0 4 `i -> 1 `i 568  ]
+[e :U 569 ]
+[; ;UltraSound.c: 38: }
+[; ;UltraSound.c: 40: if (Count <= 5) {
+"40
+[e $ ! <= _Count -> -> 5 `i `ui 570  ]
+{
+[; ;UltraSound.c: 42: lcd_backlight_on();
+"42
+[e ( _lcd_backlight_on ..  ]
+[; ;UltraSound.c: 43: break;
+"43
+[e $U 560  ]
+"44
+}
+[; ;UltraSound.c: 44: } else{
+[e $U 571  ]
+[e :U 570 ]
+{
+[; ;UltraSound.c: 45: lcd_backlight_off();
+"45
+[e ( _lcd_backlight_off ..  ]
+"46
+}
+[e :U 571 ]
+[; ;UltraSound.c: 46: }
+[; ;UltraSound.c: 47: delay_ms(100);
+"47
+[e ( _delay_ms (1 -> -> 100 `i `ui ]
+"48
 }
 [e :U 558 ]
-"11
+"16
 [e $U 559  ]
 [e :U 560 ]
-[; ;UltraSound.c: 38: }
-[; ;UltraSound.c: 39: }
-[; ;UltraSound.c: 40: }
-"40
+[; ;UltraSound.c: 48: }
+[; ;UltraSound.c: 49: }
+"49
 [e :UE 557 ]
 }

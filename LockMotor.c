@@ -40,7 +40,9 @@ void UART_Write(char data) {
 
 
 
-void LockMotor(void) {
+void LockMotor() {
+    TRISAbits.TRISA0 = 1;
+    ADCON1 = 0b00001111; 
     unsigned char key, p1, p2, p3, p4;
 
     // Initialize the LCD and UART
@@ -49,7 +51,7 @@ void LockMotor(void) {
 
     // Enable backlight if needed
     lcd_backlight_on();
-
+    while(1){
     // Clear the LCD screen
     lcd_write_cmd(0x01); // Clear display command
 
@@ -78,11 +80,22 @@ void LockMotor(void) {
         }
             delay_ms(1000);
             motorlock_unlock();
-            delay_ms(5000);
             motordoor_open();
-            delay_ms(1000);
             lcd_write_cmd(0x01);
+            while(1){
+                if (PORTAbits.RA0 == 0) {
+                    // Motion detected
+
+                } else {
+                    motordoor_close();
+                    motorlock_lock();
+                    delay_ms(1000);
+                    break;
+                }
+            }break;
             wrong=0;
+            
+            
     } else {
         // Wrong PIN
         wrong++;
@@ -98,9 +111,10 @@ void LockMotor(void) {
 
        
     }
+    
      if (wrong >= 3) {
             // Send '1' to Arduino after 3 wrong attempts
             UART_Write('1');
             // Consider adding a lockout mechanism or delay here
         }
-}
+    }}

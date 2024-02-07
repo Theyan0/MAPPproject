@@ -4558,112 +4558,100 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;MotorFunction.c: 97: Period = setPeriodTo(50);
 "97
 [e = _Period ( _setPeriodTo (1 -> -> -> 50 `i `l `ul ]
-[; ;MotorFunction.c: 98: SetDutyCycleTo(3.0, Period);
+[; ;MotorFunction.c: 98: SetDutyCycleTo(12.0, Period);
 "98
-[e ( _SetDutyCycleTo (2 , -> .3.0 `f _Period ]
-[; ;MotorFunction.c: 99: delay(1000);
+[e ( _SetDutyCycleTo (2 , -> .12.0 `f _Period ]
+[; ;MotorFunction.c: 99: delay(7000);
 "99
-[e ( _delay (1 -> -> 1000 `i `ui ]
-[; ;MotorFunction.c: 100: SetDutyCycleTo(7.0, Period);
+[e ( _delay (1 -> -> 7000 `i `ui ]
+[; ;MotorFunction.c: 100: return;
 "100
-[e ( _SetDutyCycleTo (2 , -> .7.0 `f _Period ]
-[; ;MotorFunction.c: 101: delay(1000);
+[e $UE 588  ]
+[; ;MotorFunction.c: 101: }
 "101
-[e ( _delay (1 -> -> 1000 `i `ui ]
-[; ;MotorFunction.c: 102: }
-"102
 [e :UE 588 ]
 }
-"104
+"103
 [v _motorlock_lock `(i ~T0 @X0 1 ef ]
 {
-[; ;MotorFunction.c: 104: int motorlock_lock(){
+[; ;MotorFunction.c: 103: int motorlock_lock(){
 [e :U _motorlock_lock ]
 [f ]
-"105
+"104
 [v _Period `i ~T0 @X0 1 a ]
-[; ;MotorFunction.c: 105: int Period;
-[; ;MotorFunction.c: 106: PWM_Init();
-"106
+[; ;MotorFunction.c: 104: int Period;
+[; ;MotorFunction.c: 105: PWM_Init();
+"105
 [e ( _PWM_Init ..  ]
-[; ;MotorFunction.c: 107: Period = setPeriodTo(50);
-"107
+[; ;MotorFunction.c: 106: Period = setPeriodTo(50);
+"106
 [e = _Period ( _setPeriodTo (1 -> -> -> 50 `i `l `ul ]
-[; ;MotorFunction.c: 108: SetDutyCycleTo(7.0, Period);
-"108
+[; ;MotorFunction.c: 107: SetDutyCycleTo(7.0, Period);
+"107
 [e ( _SetDutyCycleTo (2 , -> .7.0 `f _Period ]
-[; ;MotorFunction.c: 109: delay(1000);
+[; ;MotorFunction.c: 108: delay(7000);
+"108
+[e ( _delay (1 -> -> 7000 `i `ui ]
+[; ;MotorFunction.c: 109: return;
 "109
-[e ( _delay (1 -> -> 1000 `i `ui ]
-[; ;MotorFunction.c: 110: SetDutyCycleTo(12.0, Period);
+[e $UE 589  ]
+[; ;MotorFunction.c: 110: }
 "110
-[e ( _SetDutyCycleTo (2 , -> .12.0 `f _Period ]
-[; ;MotorFunction.c: 111: delay(1000);
-"111
-[e ( _delay (1 -> -> 1000 `i `ui ]
-[; ;MotorFunction.c: 112: }
-"112
 [e :UE 589 ]
 }
-"114
+"112
 [v _motordoor_open `(i ~T0 @X0 1 ef ]
 {
-[; ;MotorFunction.c: 114: int motordoor_open(){
+[; ;MotorFunction.c: 112: int motordoor_open() {
 [e :U _motordoor_open ]
 [f ]
-"115
+"113
 [v _Period `i ~T0 @X0 1 a ]
-[; ;MotorFunction.c: 115: int Period;
-[; ;MotorFunction.c: 116: PWMdoor_Init();
-"116
+[; ;MotorFunction.c: 113: int Period;
+[; ;MotorFunction.c: 114: PWMdoor_Init();
+"114
 [e ( _PWMdoor_Init ..  ]
-[; ;MotorFunction.c: 117: Period = setPeriodTo(50);
-"117
+[; ;MotorFunction.c: 115: Period = setPeriodTo(50);
+"115
 [e = _Period ( _setPeriodTo (1 -> -> -> 50 `i `l `ul ]
-[; ;MotorFunction.c: 118: doorSetDutyCycleTo(3.0, Period);
+[; ;MotorFunction.c: 116: doorSetDutyCycleTo(12.0, Period);
+"116
+[e ( _doorSetDutyCycleTo (2 , -> .12.0 `f _Period ]
+[; ;MotorFunction.c: 117: delay(7000);
+"117
+[e ( _delay (1 -> -> 7000 `i `ui ]
+[; ;MotorFunction.c: 118: return;
 "118
-[e ( _doorSetDutyCycleTo (2 , -> .3.0 `f _Period ]
-[; ;MotorFunction.c: 119: delay(1000);
+[e $UE 590  ]
+[; ;MotorFunction.c: 119: }
 "119
-[e ( _delay (1 -> -> 1000 `i `ui ]
-[; ;MotorFunction.c: 120: doorSetDutyCycleTo(7.0, Period);
-"120
-[e ( _doorSetDutyCycleTo (2 , -> .7.0 `f _Period ]
-[; ;MotorFunction.c: 121: delay(1000);
-"121
-[e ( _delay (1 -> -> 1000 `i `ui ]
-[; ;MotorFunction.c: 122: }
-"122
 [e :UE 590 ]
 }
-"124
+"121
 [v _motordoor_close `(i ~T0 @X0 1 ef ]
 {
-[; ;MotorFunction.c: 124: int motordoor_close(){
+[; ;MotorFunction.c: 121: int motordoor_close() {
 [e :U _motordoor_close ]
 [f ]
-"125
+"122
 [v _Period `i ~T0 @X0 1 a ]
-[; ;MotorFunction.c: 125: int Period;
-[; ;MotorFunction.c: 126: PWMdoor_Init();
-"126
+[; ;MotorFunction.c: 122: int Period;
+[; ;MotorFunction.c: 123: PWMdoor_Init();
+"123
 [e ( _PWMdoor_Init ..  ]
-[; ;MotorFunction.c: 127: Period = setPeriodTo(50);
-"127
+[; ;MotorFunction.c: 124: Period = setPeriodTo(50);
+"124
 [e = _Period ( _setPeriodTo (1 -> -> -> 50 `i `l `ul ]
-[; ;MotorFunction.c: 128: doorSetDutyCycleTo(7.0, Period);
+[; ;MotorFunction.c: 126: doorSetDutyCycleTo(3.0, Period);
+"126
+[e ( _doorSetDutyCycleTo (2 , -> .3.0 `f _Period ]
+[; ;MotorFunction.c: 127: delay(7000);
+"127
+[e ( _delay (1 -> -> 7000 `i `ui ]
+[; ;MotorFunction.c: 128: return;
 "128
-[e ( _doorSetDutyCycleTo (2 , -> .7.0 `f _Period ]
-[; ;MotorFunction.c: 129: delay(1000);
+[e $UE 591  ]
+[; ;MotorFunction.c: 129: }
 "129
-[e ( _delay (1 -> -> 1000 `i `ui ]
-[; ;MotorFunction.c: 130: doorSetDutyCycleTo(12.0, Period);
-"130
-[e ( _doorSetDutyCycleTo (2 , -> .12.0 `f _Period ]
-[; ;MotorFunction.c: 131: delay(1000);
-"131
-[e ( _delay (1 -> -> 1000 `i `ui ]
-[; ;MotorFunction.c: 132: }
-"132
 [e :UE 591 ]
 }

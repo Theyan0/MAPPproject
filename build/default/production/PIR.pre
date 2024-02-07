@@ -5407,23 +5407,22 @@ extern void lcd_write_cmd(unsigned char cmd);
 
 extern void lcd_write_data(char data);
 
-# 4 "PIR.c"
-unsigned char c;
-
-
-
-void PIR() {
-ADCON1 = 0x0F;
+# 5 "PIR.c"
+void pir() {
 TRISAbits.TRISA0 = 1;
+ADCON1 = 0b00001111;
+
+lcd_init();
 
 while(1) {
-lcd_write_cmd(0xC0);
+lcd_write_cmd(0x01);
 if (PORTAbits.RA0 == 0) {
-delay_ms(1000);
+
+
 } else {
 motordoor_close();
-delay_ms(5000);
 motorlock_lock();
+delay_ms(1000);
 }
 
 }

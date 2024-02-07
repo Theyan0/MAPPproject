@@ -5408,39 +5408,48 @@ extern void lcd_write_cmd(unsigned char cmd);
 extern void lcd_write_data(char data);
 
 # 5 "UltraSound.c"
-void UltraSound() {
-ADCON1 = 0x0F;
-TRISAbits.TRISA1 = 0;
-TRISAbits.TRISA2 = 1;
+void ultra() {
+TRISAbits.TRISA1 = 1;
+TRISAbits.TRISA2 = 0;
+TRISAbits.TRISA4 = 1;
+TRISAbits.TRISA3 = 0;
+ADCON1 = 0b00001111;
+
+PORTAbits.RA4 = 0;
+
 lcd_init();
 
 while(1) {
 unsigned int Count = 0;
 
-PORTAbits.RA1 = 1;
+
+PORTAbits.RA2 = 1;
 delay_us(10);
-PORTAbits.RA1 = 0;
+PORTAbits.RA2 = 0;
 delay_ms(1);
 
 
-while (PORTAbits.RA2 == 0);
+while (PORTAbits.RA1 == 0);
 Count = 0;
 
-while ((PORTAbits.RA2 == 1) && (Count < 200)) {
+while ((PORTAbits.RA1 == 1) && (Count < 200)) {
 delay_us(58);
 Count++;
 }
 
-unsigned int distance_cm = Count / 58;
+PORTAbits.RA3 = 0;
+while (PORTAbits.RA4 == 1 ) {
+PORTAbits.RA3 = 1;
+delay_ms(100);
+}
 
-if (distance_cm <= 5) {
+if (Count <= 5) {
 
 lcd_backlight_on();
-
-} else {
-
-lcd_backlight_off();
 break;
+} else{
+lcd_backlight_off();
 }
+delay_ms(100);
 }
 }

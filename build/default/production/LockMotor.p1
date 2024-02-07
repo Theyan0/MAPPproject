@@ -44,9 +44,22 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _TRMT `Vb ~T0 @X0 0 e@32097 ]
 "6008
 [v _TXREG `Vuc ~T0 @X0 0 e@4013 ]
+"3987
+[s S292 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S292 . TRISA0 TRISA1 TRISA2 TRISA3 TRISA4 TRISA5 TRISA6 ]
+"3996
+[s S293 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S293 . RA0 RA1 RA2 RA3 RA4 RA5 RA6 ]
+"3986
+[u S291 `S292 1 `S293 1 ]
+[n S291 . . . ]
+"4006
+[v _TRISAbits `VS291 ~T0 @X0 0 e@3986 ]
+"7173
+[v _ADCON1 `Vuc ~T0 @X0 0 e@4033 ]
 "7 lcd.h
 [v _lcd_init `(v ~T0 @X0 0 ef ]
-"51 LockMotor.c
+"53 LockMotor.c
 [v _lcd_backlight_on `(i ~T0 @X0 0 ef ]
 "10 lcd.h
 [v _lcd_write_cmd `(v ~T0 @X0 0 ef1`uc ]
@@ -56,10 +69,40 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _getkey `(uc ~T0 @X0 0 ef ]
 "5 delays.h
 [v _delay_ms `(v ~T0 @X0 0 ef1`ui ]
-"80 LockMotor.c
+"82 LockMotor.c
 [v _motorlock_unlock `(i ~T0 @X0 0 ef ]
-"82
+"83
 [v _motordoor_open `(i ~T0 @X0 0 ef ]
+"2577 C:\Program Files (x86)\Microchip\xc8\v1.35\include\pic18f4550.h
+[s S193 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S193 . RA0 RA1 RA2 RA3 RA4 RA5 RA6 ]
+"2586
+[s S194 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S194 . AN0 AN1 AN2 AN3 T0CKI AN4 OSC2 ]
+"2595
+[s S195 :2 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S195 . . VREFM VREFP . LVDIN ]
+"2602
+[s S196 :5 `uc 1 :1 `uc 1 ]
+[n S196 . . HLVDIN ]
+"2606
+[s S197 :7 `uc 1 :1 `uc 1 ]
+[n S197 . . RA7 ]
+"2610
+[s S198 :7 `uc 1 :1 `uc 1 ]
+[n S198 . . RJPU ]
+"2614
+[s S199 :1 `uc 1 ]
+[n S199 . ULPWUIN ]
+"2576
+[u S192 `S193 1 `S194 1 `S195 1 `S196 1 `S197 1 `S198 1 `S199 1 ]
+[n S192 . . . . . . . . ]
+"2618
+[v _PORTAbits `VS192 ~T0 @X0 0 e@3968 ]
+"90 LockMotor.c
+[v _motordoor_close `(i ~T0 @X0 0 ef ]
+"91
+[v _motorlock_lock `(i ~T0 @X0 0 ef ]
 [; ;htc.h: 26: extern const char __xc8_OPTIM_SPEED;
 [; ;htc.h: 28: extern double __fpnormalize(double);
 [; ;xc8debug.h: 14: extern void __builtin_software_breakpoint(void);
@@ -4381,32 +4424,42 @@ Version 3.2 HI-TECH Software Intermediate Code
 "43
 [v _LockMotor `(v ~T0 @X0 1 ef ]
 {
-[; ;LockMotor.c: 43: void LockMotor(void) {
+[; ;LockMotor.c: 43: void LockMotor() {
 [e :U _LockMotor ]
 [f ]
+[; ;LockMotor.c: 44: TRISAbits.TRISA0 = 1;
+"44
+[e = . . _TRISAbits 0 0 -> -> 1 `i `uc ]
+[; ;LockMotor.c: 45: ADCON1 = 0b00001111;
+"45
+[e = _ADCON1 -> -> 15 `i `uc ]
 [v _key `uc ~T0 @X0 1 a ]
 [v _p1 `uc ~T0 @X0 1 a ]
 [v _p2 `uc ~T0 @X0 1 a ]
 [v _p3 `uc ~T0 @X0 1 a ]
 [v _p4 `uc ~T0 @X0 1 a ]
-[; ;LockMotor.c: 44: unsigned char key, p1, p2, p3, p4;
-[; ;LockMotor.c: 47: lcd_init();
-"47
+[; ;LockMotor.c: 46: unsigned char key, p1, p2, p3, p4;
+[; ;LockMotor.c: 49: lcd_init();
+"49
 [e ( _lcd_init ..  ]
-[; ;LockMotor.c: 48: UART_Init();
-"48
+[; ;LockMotor.c: 50: UART_Init();
+"50
 [e ( _UART_Init ..  ]
-[; ;LockMotor.c: 51: lcd_backlight_on();
-"51
+[; ;LockMotor.c: 53: lcd_backlight_on();
+"53
 [e ( _lcd_backlight_on ..  ]
-[; ;LockMotor.c: 54: lcd_write_cmd(0x01);
+[; ;LockMotor.c: 54: while(1){
 "54
+[e :U 565 ]
+{
+[; ;LockMotor.c: 56: lcd_write_cmd(0x01);
+"56
 [e ( _lcd_write_cmd (1 -> -> 1 `i `uc ]
-[; ;LockMotor.c: 57: lcd_write_cmd(0x80);
-"57
+[; ;LockMotor.c: 59: lcd_write_cmd(0x80);
+"59
 [e ( _lcd_write_cmd (1 -> -> 128 `i `uc ]
-[v F4629 `uc ~T0 @X0 -> 0 `x s ]
-[i F4629
+[v F4628 `uc ~T0 @X0 -> 0 `x s ]
+[i F4628
 :U ..
 -> 69 `c
 -> 110 `c
@@ -4432,61 +4485,61 @@ Version 3.2 HI-TECH Software Intermediate Code
 ..
 ]
 [v _Message1 `uc ~T0 @X0 21  a ]
-[; ;LockMotor.c: 58: char Message1[] = "Enter PIN number :  ";
-"58
-[e = _Message1 F4629 ]
-[; ;LockMotor.c: 59: for (int i = 0; Message1[i] != '\0'; i++) {
-"59
+[; ;LockMotor.c: 60: char Message1[] = "Enter PIN number :  ";
+"60
+[e = _Message1 F4628 ]
+[; ;LockMotor.c: 61: for (int i = 0; Message1[i] != '\0'; i++) {
+"61
 {
 [v _i `i ~T0 @X0 1 a ]
 [e = _i -> 0 `i ]
-[e $U 567  ]
-[e :U 564 ]
-{
-[; ;LockMotor.c: 60: lcd_write_data(Message1[i]);
-"60
-[e ( _lcd_write_data (1 *U + &U _Message1 * -> -> _i `ui `ux -> -> # *U &U _Message1 `ui `ux ]
-"61
-}
-"59
-[e ++ _i -> 1 `i ]
+[e $U 570  ]
 [e :U 567 ]
-[e $ != -> *U + &U _Message1 * -> -> _i `ui `ux -> -> # *U &U _Message1 `ui `ux `ui -> 0 `ui 564  ]
-[e :U 565 ]
-"61
+{
+[; ;LockMotor.c: 62: lcd_write_data(Message1[i]);
+"62
+[e ( _lcd_write_data (1 *U + &U _Message1 * -> -> _i `ui `ux -> -> # *U &U _Message1 `ui `ux ]
+"63
 }
-[; ;LockMotor.c: 61: }
-[; ;LockMotor.c: 64: lcd_write_cmd(0xC0);
-"64
+"61
+[e ++ _i -> 1 `i ]
+[e :U 570 ]
+[e $ != -> *U + &U _Message1 * -> -> _i `ui `ux -> -> # *U &U _Message1 `ui `ux `ui -> 0 `ui 567  ]
+[e :U 568 ]
+"63
+}
+[; ;LockMotor.c: 63: }
+[; ;LockMotor.c: 66: lcd_write_cmd(0xC0);
+"66
 [e ( _lcd_write_cmd (1 -> -> 192 `i `uc ]
-[; ;LockMotor.c: 65: p1 = getkey(); lcd_write_data('*');
-"65
+[; ;LockMotor.c: 67: p1 = getkey(); lcd_write_data('*');
+"67
 [e = _p1 ( _getkey ..  ]
 [e ( _lcd_write_data (1 -> -> 42 `ui `uc ]
-[; ;LockMotor.c: 66: p2 = getkey(); lcd_write_data('*');
-"66
+[; ;LockMotor.c: 68: p2 = getkey(); lcd_write_data('*');
+"68
 [e = _p2 ( _getkey ..  ]
 [e ( _lcd_write_data (1 -> -> 42 `ui `uc ]
-[; ;LockMotor.c: 67: p3 = getkey(); lcd_write_data('*');
-"67
+[; ;LockMotor.c: 69: p3 = getkey(); lcd_write_data('*');
+"69
 [e = _p3 ( _getkey ..  ]
 [e ( _lcd_write_data (1 -> -> 42 `ui `uc ]
-[; ;LockMotor.c: 68: p4 = getkey(); lcd_write_data('*');
-"68
+[; ;LockMotor.c: 70: p4 = getkey(); lcd_write_data('*');
+"70
 [e = _p4 ( _getkey ..  ]
 [e ( _lcd_write_data (1 -> -> 42 `ui `uc ]
-[; ;LockMotor.c: 71: if (p1 == '4' && p2 == '5' && p3 == '5' && p4 == '0') {
-"71
-[e $ ! && && && == -> _p1 `ui -> 52 `ui == -> _p2 `ui -> 53 `ui == -> _p3 `ui -> 53 `ui == -> _p4 `ui -> 48 `ui 568  ]
-{
-[; ;LockMotor.c: 73: lcd_write_cmd(0x01);
+[; ;LockMotor.c: 73: if (p1 == '4' && p2 == '5' && p3 == '5' && p4 == '0') {
 "73
+[e $ ! && && && == -> _p1 `ui -> 52 `ui == -> _p2 `ui -> 53 `ui == -> _p3 `ui -> 53 `ui == -> _p4 `ui -> 48 `ui 571  ]
+{
+[; ;LockMotor.c: 75: lcd_write_cmd(0x01);
+"75
 [e ( _lcd_write_cmd (1 -> -> 1 `i `uc ]
-[; ;LockMotor.c: 74: lcd_write_cmd(0x80);
-"74
+[; ;LockMotor.c: 76: lcd_write_cmd(0x80);
+"76
 [e ( _lcd_write_cmd (1 -> -> 128 `i `uc ]
-[v F4632 `uc ~T0 @X0 -> 0 `x s ]
-[i F4632
+[v F4631 `uc ~T0 @X0 -> 0 `x s ]
+[i F4631
 :U ..
 -> 79 `c
 -> 80 `c
@@ -4503,69 +4556,102 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> 0 `c
 ..
 ]
-"75
+"77
 [v _openMsg `uc ~T0 @X0 13  a ]
-[; ;LockMotor.c: 75: char openMsg[] = "OPENING LOCK";
-[e = _openMsg F4632 ]
-[; ;LockMotor.c: 76: for (int i = 0; openMsg[i] != '\0'; i++) {
-"76
+[; ;LockMotor.c: 77: char openMsg[] = "OPENING LOCK";
+[e = _openMsg F4631 ]
+[; ;LockMotor.c: 78: for (int i = 0; openMsg[i] != '\0'; i++) {
+"78
 {
 [v _i `i ~T0 @X0 1 a ]
 [e = _i -> 0 `i ]
-[e $U 572  ]
-[e :U 569 ]
-{
-[; ;LockMotor.c: 77: lcd_write_data(openMsg[i]);
-"77
-[e ( _lcd_write_data (1 *U + &U _openMsg * -> -> _i `ui `ux -> -> # *U &U _openMsg `ui `ux ]
-"78
-}
-"76
-[e ++ _i -> 1 `i ]
+[e $U 575  ]
 [e :U 572 ]
-[e $ != -> *U + &U _openMsg * -> -> _i `ui `ux -> -> # *U &U _openMsg `ui `ux `ui -> 0 `ui 569  ]
-[e :U 570 ]
-"78
-}
-[; ;LockMotor.c: 78: }
-[; ;LockMotor.c: 79: delay_ms(1000);
+{
+[; ;LockMotor.c: 79: lcd_write_data(openMsg[i]);
 "79
-[e ( _delay_ms (1 -> -> 1000 `i `ui ]
-[; ;LockMotor.c: 80: motorlock_unlock();
+[e ( _lcd_write_data (1 *U + &U _openMsg * -> -> _i `ui `ux -> -> # *U &U _openMsg `ui `ux ]
 "80
-[e ( _motorlock_unlock ..  ]
-[; ;LockMotor.c: 81: delay_ms(5000);
+}
+"78
+[e ++ _i -> 1 `i ]
+[e :U 575 ]
+[e $ != -> *U + &U _openMsg * -> -> _i `ui `ux -> -> # *U &U _openMsg `ui `ux `ui -> 0 `ui 572  ]
+[e :U 573 ]
+"80
+}
+[; ;LockMotor.c: 80: }
+[; ;LockMotor.c: 81: delay_ms(1000);
 "81
-[e ( _delay_ms (1 -> -> 5000 `i `ui ]
-[; ;LockMotor.c: 82: motordoor_open();
-"82
-[e ( _motordoor_open ..  ]
-[; ;LockMotor.c: 83: delay_ms(1000);
-"83
 [e ( _delay_ms (1 -> -> 1000 `i `ui ]
+[; ;LockMotor.c: 82: motorlock_unlock();
+"82
+[e ( _motorlock_unlock ..  ]
+[; ;LockMotor.c: 83: motordoor_open();
+"83
+[e ( _motordoor_open ..  ]
 [; ;LockMotor.c: 84: lcd_write_cmd(0x01);
 "84
 [e ( _lcd_write_cmd (1 -> -> 1 `i `uc ]
-[; ;LockMotor.c: 85: wrong=0;
+[; ;LockMotor.c: 85: while(1){
 "85
-[e = _wrong -> 0 `i ]
-"86
-}
-[; ;LockMotor.c: 86: } else {
-[e $U 573  ]
-[e :U 568 ]
+[e :U 577 ]
 {
-[; ;LockMotor.c: 88: wrong++;
-"88
-[e ++ _wrong -> 1 `i ]
-[; ;LockMotor.c: 89: lcd_write_cmd(0x01);
+[; ;LockMotor.c: 86: if (PORTAbits.RA0 == 0) {
+"86
+[e $ ! == -> . . _PORTAbits 0 0 `i -> 0 `i 579  ]
+{
 "89
-[e ( _lcd_write_cmd (1 -> -> 1 `i `uc ]
-[; ;LockMotor.c: 90: lcd_write_cmd(0x80);
+}
+[; ;LockMotor.c: 89: } else {
+[e $U 580  ]
+[e :U 579 ]
+{
+[; ;LockMotor.c: 90: motordoor_close();
 "90
+[e ( _motordoor_close ..  ]
+[; ;LockMotor.c: 91: motorlock_lock();
+"91
+[e ( _motorlock_lock ..  ]
+[; ;LockMotor.c: 92: delay_ms(1000);
+"92
+[e ( _delay_ms (1 -> -> 1000 `i `ui ]
+[; ;LockMotor.c: 93: break;
+"93
+[e $U 578  ]
+"94
+}
+[e :U 580 ]
+"95
+}
+[e :U 576 ]
+"85
+[e $U 577  ]
+[e :U 578 ]
+[; ;LockMotor.c: 94: }
+[; ;LockMotor.c: 95: }break;
+"95
+[e $U 566  ]
+[; ;LockMotor.c: 96: wrong=0;
+"96
+[e = _wrong -> 0 `i ]
+"99
+}
+[; ;LockMotor.c: 99: } else {
+[e $U 581  ]
+[e :U 571 ]
+{
+[; ;LockMotor.c: 101: wrong++;
+"101
+[e ++ _wrong -> 1 `i ]
+[; ;LockMotor.c: 102: lcd_write_cmd(0x01);
+"102
+[e ( _lcd_write_cmd (1 -> -> 1 `i `uc ]
+[; ;LockMotor.c: 103: lcd_write_cmd(0x80);
+"103
 [e ( _lcd_write_cmd (1 -> -> 128 `i `uc ]
-[v F4637 `uc ~T0 @X0 -> 0 `x s ]
-[i F4637
+[v F4638 `uc ~T0 @X0 -> 0 `x s ]
+[i F4638
 :U ..
 -> 87 `c
 -> 82 `c
@@ -4579,53 +4665,59 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> 0 `c
 ..
 ]
-"91
+"104
 [v _errorMsg `uc ~T0 @X0 10  a ]
-[; ;LockMotor.c: 91: char errorMsg[] = "WRONG PIN";
-[e = _errorMsg F4637 ]
-[; ;LockMotor.c: 92: for (int i = 0; errorMsg[i] != '\0'; i++) {
-"92
+[; ;LockMotor.c: 104: char errorMsg[] = "WRONG PIN";
+[e = _errorMsg F4638 ]
+[; ;LockMotor.c: 105: for (int i = 0; errorMsg[i] != '\0'; i++) {
+"105
 {
 [v _i `i ~T0 @X0 1 a ]
 [e = _i -> 0 `i ]
-[e $U 577  ]
-[e :U 574 ]
+[e $U 585  ]
+[e :U 582 ]
 {
-[; ;LockMotor.c: 93: lcd_write_data(errorMsg[i]);
-"93
-[e ( _lcd_write_data (1 *U + &U _errorMsg * -> -> _i `ui `ux -> -> # *U &U _errorMsg `ui `ux ]
-"94
-}
-"92
-[e ++ _i -> 1 `i ]
-[e :U 577 ]
-[e $ != -> *U + &U _errorMsg * -> -> _i `ui `ux -> -> # *U &U _errorMsg `ui `ux `ui -> 0 `ui 574  ]
-[e :U 575 ]
-"94
-}
-[; ;LockMotor.c: 94: }
-[; ;LockMotor.c: 95: lcd_write_data(wrong);
-"95
-[e ( _lcd_write_data (1 -> _wrong `uc ]
-[; ;LockMotor.c: 97: delay_ms(2000);
-"97
-[e ( _delay_ms (1 -> -> 2000 `i `ui ]
-"100
-}
-[e :U 573 ]
-[; ;LockMotor.c: 100: }
-[; ;LockMotor.c: 101: if (wrong >= 3) {
-"101
-[e $ ! >= _wrong -> 3 `i 578  ]
-{
-[; ;LockMotor.c: 103: UART_Write('1');
-"103
-[e ( _UART_Write (1 -> -> 49 `ui `uc ]
-"105
-}
-[e :U 578 ]
-[; ;LockMotor.c: 105: }
-[; ;LockMotor.c: 106: }
+[; ;LockMotor.c: 106: lcd_write_data(errorMsg[i]);
 "106
+[e ( _lcd_write_data (1 *U + &U _errorMsg * -> -> _i `ui `ux -> -> # *U &U _errorMsg `ui `ux ]
+"107
+}
+"105
+[e ++ _i -> 1 `i ]
+[e :U 585 ]
+[e $ != -> *U + &U _errorMsg * -> -> _i `ui `ux -> -> # *U &U _errorMsg `ui `ux `ui -> 0 `ui 582  ]
+[e :U 583 ]
+"107
+}
+[; ;LockMotor.c: 107: }
+[; ;LockMotor.c: 108: lcd_write_data(wrong);
+"108
+[e ( _lcd_write_data (1 -> _wrong `uc ]
+[; ;LockMotor.c: 110: delay_ms(2000);
+"110
+[e ( _delay_ms (1 -> -> 2000 `i `ui ]
+"113
+}
+[e :U 581 ]
+[; ;LockMotor.c: 113: }
+[; ;LockMotor.c: 115: if (wrong >= 3) {
+"115
+[e $ ! >= _wrong -> 3 `i 586  ]
+{
+[; ;LockMotor.c: 117: UART_Write('1');
+"117
+[e ( _UART_Write (1 -> -> 49 `ui `uc ]
+"119
+}
+[e :U 586 ]
+"120
+}
+[e :U 564 ]
+"54
+[e $U 565  ]
+[e :U 566 ]
+[; ;LockMotor.c: 119: }
+[; ;LockMotor.c: 120: }}
+"120
 [e :UE 563 ]
 }

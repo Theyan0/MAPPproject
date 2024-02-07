@@ -12,11 +12,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _TRISAbits `VS291 ~T0 @X0 0 e@3986 ]
 "7173
 [v _ADCON1 `Vuc ~T0 @X0 0 e@4033 ]
-"7 lcd.h
-[v _lcd_init `(v ~T0 @X0 0 ef ]
-"10
-[v _lcd_write_cmd `(v ~T0 @X0 0 ef1`uc ]
-"2577 C:\Program Files (x86)\Microchip\xc8\v1.35\include\pic18f4550.h
+"2577
 [s S193 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
 [n S193 . RA0 RA1 RA2 RA3 RA4 RA5 RA6 ]
 "2586
@@ -42,10 +38,6 @@ Version 3.2 HI-TECH Software Intermediate Code
 [n S192 . . . . . . . . ]
 "2618
 [v _PORTAbits `VS192 ~T0 @X0 0 e@3968 ]
-"17 PIR.c
-[v _motordoor_close `(i ~T0 @X0 0 ef ]
-"18
-[v _motorlock_lock `(i ~T0 @X0 0 ef ]
 "5 delays.h
 [v _delay_ms `(v ~T0 @X0 0 ef1`ui ]
 [; ;htc.h: 26: extern const char __xc8_OPTIM_SPEED;
@@ -4196,59 +4188,64 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;lcd.h: 7: extern void lcd_init(void);
 [; ;lcd.h: 10: extern void lcd_write_cmd(unsigned char cmd);
 [; ;lcd.h: 13: extern void lcd_write_data(char data);
-"5 PIR.c
-[v _pir `(v ~T0 @X0 1 ef ]
+[; ;keypad.h: 3: extern char getkey(void);
+"6 butbuzz.c
+[v _buzzer `(v ~T0 @X0 1 ef ]
 {
-[; ;PIR.c: 5: void pir() {
-[e :U _pir ]
+[; ;butbuzz.c: 6: void buzzer() {
+[e :U _buzzer ]
 [f ]
-[; ;PIR.c: 6: TRISAbits.TRISA0 = 1;
-"6
-[e = . . _TRISAbits 0 0 -> -> 1 `i `uc ]
-[; ;PIR.c: 7: ADCON1 = 0b00001111;
-"7
-[e = _ADCON1 -> -> 15 `i `uc ]
-[; ;PIR.c: 9: lcd_init();
+[; ;butbuzz.c: 8: TRISAbits.TRISA4 = 1;
+"8
+[e = . . _TRISAbits 0 4 -> -> 1 `i `uc ]
+[; ;butbuzz.c: 9: TRISAbits.TRISA3 = 0;
 "9
-[e ( _lcd_init ..  ]
-[; ;PIR.c: 11: while(1) {
-"11
+[e = . . _TRISAbits 0 3 -> -> 0 `i `uc ]
+[; ;butbuzz.c: 10: ADCON1 = 0b00001111;
+"10
+[e = _ADCON1 -> -> 15 `i `uc ]
+[; ;butbuzz.c: 12: PORTAbits.RA4 = 0;
+"12
+[e = . . _PORTAbits 0 4 -> -> 0 `i `uc ]
+[; ;butbuzz.c: 14: while(1){
+"14
 [e :U 559 ]
 {
-[; ;PIR.c: 12: lcd_write_cmd(0x01);
-"12
-[e ( _lcd_write_cmd (1 -> -> 1 `i `uc ]
-[; ;PIR.c: 13: if (PORTAbits.RA0 == 0) {
-"13
-[e $ ! == -> . . _PORTAbits 0 0 `i -> 0 `i 561  ]
-{
+[; ;butbuzz.c: 15: PORTAbits.RA3 = 0;
+"15
+[e = . . _PORTAbits 0 3 -> -> 0 `i `uc ]
+[; ;butbuzz.c: 16: while (PORTAbits.RA4 == 1 ) {
 "16
-}
-[; ;PIR.c: 16: } else {
-[e $U 562  ]
-[e :U 561 ]
+[e $U 561  ]
+[e :U 562 ]
 {
-[; ;PIR.c: 17: motordoor_close();
+[; ;butbuzz.c: 17: PORTAbits.RA3 = 1;
 "17
-[e ( _motordoor_close ..  ]
-[; ;PIR.c: 18: motorlock_lock();
+[e = . . _PORTAbits 0 3 -> -> 1 `i `uc ]
+[; ;butbuzz.c: 18: delay_ms(100);
 "18
-[e ( _motorlock_lock ..  ]
-[; ;PIR.c: 19: delay_ms(1000);
+[e ( _delay_ms (1 -> -> 100 `i `ui ]
+[; ;butbuzz.c: 19: break;
 "19
-[e ( _delay_ms (1 -> -> 1000 `i `ui ]
+[e $U 563  ]
 "20
 }
-[e :U 562 ]
+[e :U 561 ]
+"16
+[e $ == -> . . _PORTAbits 0 4 `i -> 1 `i 562  ]
+[e :U 563 ]
+[; ;butbuzz.c: 20: }
+[; ;butbuzz.c: 21: break;
+"21
+[e $U 560  ]
 "22
 }
 [e :U 558 ]
-"11
+"14
 [e $U 559  ]
 [e :U 560 ]
-[; ;PIR.c: 20: }
-[; ;PIR.c: 22: }
-[; ;PIR.c: 23: }
-"23
+[; ;butbuzz.c: 22: }
+[; ;butbuzz.c: 24: }
+"24
 [e :UE 557 ]
 }

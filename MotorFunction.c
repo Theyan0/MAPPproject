@@ -95,38 +95,35 @@ int motorlock_unlock(){
     int Period;
     PWM_Init();                /* Initialize PWM */
     Period = setPeriodTo(50);
-    SetDutyCycleTo(3.0, Period);/* 3% duty cycle */
-    delay(1000);
-    SetDutyCycleTo(7.0, Period); /* 7% duty cycle */
-    delay(1000);
+    SetDutyCycleTo(12.0, Period);/* 3% duty cycle */
+    delay(7000);
+    return;
 }
 
 int motorlock_lock(){
     int Period;
     PWM_Init();                /* Initialize PWM */
     Period = setPeriodTo(50);
-    SetDutyCycleTo(7.0, Period); /* 7% duty cycle */
-    delay(1000);
-    SetDutyCycleTo(12.0, Period);/* 12% duty cycle */
-    delay(1000);
+    SetDutyCycleTo(7.0, Period); 
+    delay(7000);
+    return;
 }
 
-int motordoor_open(){
+int motordoor_open() {
     int Period;
     PWMdoor_Init();
     Period = setPeriodTo(50);
-    doorSetDutyCycleTo(3.0, Period);/* 3% duty cycle */
-    delay(1000);
-    doorSetDutyCycleTo(7.0, Period); /* 7% duty cycle */
-    delay(1000);
+    doorSetDutyCycleTo(12.0, Period);
+    delay(7000);
+    return;
 }
 
-int motordoor_close(){
+int motordoor_close() {
     int Period;
-    PWMdoor_Init();/* Initialize PWM */
+    PWMdoor_Init(); /* Initialize PWM */
     Period = setPeriodTo(50);
-    doorSetDutyCycleTo(7.0, Period); /* 7% duty cycle */
-    delay(1000);
-    doorSetDutyCycleTo(12.0, Period);/* 12% duty cycle */
-    delay(1000);
+    // Move the door to closed position (180 degrees)
+    doorSetDutyCycleTo(3.0, Period); /* 12% duty cycle */
+    delay(7000); // Adjust this delay as needed for the door to close
+    return;
 }
