@@ -5407,14 +5407,13 @@ extern void lcd_write_cmd(unsigned char cmd);
 
 extern void lcd_write_data(char data);
 
-# 6 "newmain.c"
+# 5 "newmain.c"
 void main() {
 TRISAbits.TRISA0 = 1;
 ADCON1 = 0b00001111;
 while(1){
-lcd_backlight_off();
-buzzer();
 ultra();
 LockMotor();
+return;
 }
 }

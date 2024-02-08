@@ -4225,27 +4225,21 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;butbuzz.c: 18: delay_ms(100);
 "18
 [e ( _delay_ms (1 -> -> 100 `i `ui ]
-[; ;butbuzz.c: 19: break;
 "19
-[e $U 563  ]
-"20
 }
 [e :U 561 ]
 "16
 [e $ == -> . . _PORTAbits 0 4 `i -> 1 `i 562  ]
 [e :U 563 ]
-[; ;butbuzz.c: 20: }
-[; ;butbuzz.c: 21: break;
-"21
-[e $U 560  ]
-"22
+"20
 }
 [e :U 558 ]
 "14
 [e $U 559  ]
 [e :U 560 ]
+[; ;butbuzz.c: 19: }
+[; ;butbuzz.c: 20: }
 [; ;butbuzz.c: 22: }
-[; ;butbuzz.c: 24: }
-"24
+"22
 [e :UE 557 ]
 }

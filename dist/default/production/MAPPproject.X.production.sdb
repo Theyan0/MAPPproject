@@ -3,8 +3,6 @@
 [d edition pro ]
 [d chip 18F4550 ]
 [d frameptr 4065 ]
-"6 C:\Users\sunda\MPLABXProjects\MAPPproject.X\butbuzz.c
-[v _buzzer buzzer `(i  1 e 2 0 ]
 "42 C:\Program Files (x86)\Microchip\xc8\v1.35\sources\common\altoft.c
 [v ___altoft __altoft `(f  1 e 3 0 ]
 "32 C:\Program Files (x86)\Microchip\xc8\v1.35\sources\common\awtoft.c
@@ -87,7 +85,7 @@
 [v _motordoor_open motordoor_open `(i  1 e 2 0 ]
 "121
 [v _motordoor_close motordoor_close `(i  1 e 2 0 ]
-"6 C:\Users\sunda\MPLABXProjects\MAPPproject.X\newmain.c
+"5 C:\Users\sunda\MPLABXProjects\MAPPproject.X\newmain.c
 [v _main main `(v  1 e 0 0 ]
 "5 C:\Users\sunda\MPLABXProjects\MAPPproject.X\UltraSound.c
 [v _ultra ultra `(v  1 e 0 0 ]
@@ -325,10 +323,10 @@
 [v _TRMT TRMT `VEb  1 e 0 @32097 ]
 "21 C:\Users\sunda\MPLABXProjects\MAPPproject.X\LockMotor.c
 [v _wrong wrong `i  1 e 2 0 ]
-"6 C:\Users\sunda\MPLABXProjects\MAPPproject.X\newmain.c
+"5 C:\Users\sunda\MPLABXProjects\MAPPproject.X\newmain.c
 [v _main main `(v  1 e 0 0 ]
 {
-"15
+"13
 } 0
 "5 C:\Users\sunda\MPLABXProjects\MAPPproject.X\UltraSound.c
 [v _ultra ultra `(v  1 e 0 0 ]
@@ -364,38 +362,33 @@
 [v ___lwdiv@divisor divisor `ui  1 p 2 2 ]
 "31
 } 0
-"6 C:\Users\sunda\MPLABXProjects\MAPPproject.X\butbuzz.c
-[v _buzzer buzzer `(i  1 e 2 0 ]
-{
-"24
-} 0
 "43 C:\Users\sunda\MPLABXProjects\MAPPproject.X\LockMotor.c
 [v _LockMotor LockMotor `(v  1 e 0 0 ]
 {
-"105
+"107
 [v LockMotor@i_597 i `i  1 a 2 85 ]
-"78
+"79
 [v LockMotor@i_594 i `i  1 a 2 83 ]
-"104
+"106
 [v LockMotor@errorMsg errorMsg `[10]uc  1 a 10 67 ]
-"77
+"78
 [v LockMotor@openMsg openMsg `[13]uc  1 a 13 54 ]
-"61
+"62
 [v LockMotor@i i `i  1 a 2 81 ]
-"59
+"60
 [v LockMotor@Message1 Message1 `[21]uc  1 a 21 33 ]
 "45
 [v LockMotor@p4 p4 `uc  1 a 1 80 ]
 [v LockMotor@p3 p3 `uc  1 a 1 79 ]
 [v LockMotor@p2 p2 `uc  1 a 1 78 ]
 [v LockMotor@p1 p1 `uc  1 a 1 77 ]
-"59
+"60
 [v LockMotor@F4628 F4628 `[21]uc  1 s 21 F4628 ]
-"76
+"77
 [v LockMotor@F4631 F4631 `[13]uc  1 s 13 F4631 ]
-"103
+"105
 [v LockMotor@F4638 F4638 `[10]uc  1 s 10 F4638 ]
-"120
+"122
 } 0
 "94 C:\Users\sunda\MPLABXProjects\MAPPproject.X\MotorFunction.c
 [v _motorlock_unlock motorlock_unlock `(i  1 e 2 0 ]

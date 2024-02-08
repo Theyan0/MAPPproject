@@ -16,9 +16,7 @@ void buzzer() {
         while (PORTAbits.RA4 == 1 ) {
             PORTAbits.RA3 = 1; 
             delay_ms(100);
-            break;
         }
-        break;
     }
     
 }

@@ -51,6 +51,7 @@ void LockMotor() {
 
     // Enable backlight if needed
     lcd_backlight_on();
+    
     while(1){
     // Clear the LCD screen
     lcd_write_cmd(0x01); // Clear display command
@@ -82,17 +83,18 @@ void LockMotor() {
             motorlock_unlock();
             motordoor_open();
             lcd_write_cmd(0x01);
-            while(1){
-                if (PORTAbits.RA0 == 0) {
-                    // Motion detected
-
-                } else {
-                    motordoor_close();
-                    motorlock_lock();
-                    delay_ms(1000);
-                    break;
+                while (PORTAbits.RA0 == 0) {
+             
+                    delay_ms(50);
                 }
-            }break;
+            lcd_write_cmd(0x01);
+            // Motion detected
+            motordoor_close();
+
+            motorlock_lock();
+            delay_ms(1000);
+
+                
             wrong=0;
             
             

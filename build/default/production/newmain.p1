@@ -13,13 +13,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _TRISAbits `VS291 ~T0 @X0 0 e@3986 ]
 "7173
 [v _ADCON1 `Vuc ~T0 @X0 0 e@4033 ]
-"10 newmain.c
-[v _lcd_backlight_off `(i ~T0 @X0 0 ef ]
-"11
-[v _buzzer `(i ~T0 @X0 0 ef ]
-"12
+"9 newmain.c
 [v _ultra `(i ~T0 @X0 0 ef ]
-"13
+"10
 [v _LockMotor `(i ~T0 @X0 0 ef ]
 [; ;htc.h: 26: extern const char __xc8_OPTIM_SPEED;
 [; ;htc.h: 28: extern double __fpnormalize(double);
@@ -4169,42 +4165,39 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;lcd.h: 7: extern void lcd_init(void);
 [; ;lcd.h: 10: extern void lcd_write_cmd(unsigned char cmd);
 [; ;lcd.h: 13: extern void lcd_write_data(char data);
-"6 newmain.c
+"5 newmain.c
 [v _main `(v ~T0 @X0 1 ef ]
 {
-[; ;newmain.c: 6: void main() {
+[; ;newmain.c: 5: void main() {
 [e :U _main ]
 [f ]
-[; ;newmain.c: 7: TRISAbits.TRISA0 = 1;
-"7
+[; ;newmain.c: 6: TRISAbits.TRISA0 = 1;
+"6
 [e = . . _TRISAbits 0 0 -> -> 1 `i `uc ]
-[; ;newmain.c: 8: ADCON1 = 0b00001111;
-"8
+[; ;newmain.c: 7: ADCON1 = 0b00001111;
+"7
 [e = _ADCON1 -> -> 15 `i `uc ]
-[; ;newmain.c: 9: while(1){
-"9
+[; ;newmain.c: 8: while(1){
+"8
 [e :U 559 ]
 {
-[; ;newmain.c: 10: lcd_backlight_off();
-"10
-[e ( _lcd_backlight_off ..  ]
-[; ;newmain.c: 11: buzzer();
-"11
-[e ( _buzzer ..  ]
-[; ;newmain.c: 12: ultra();
-"12
+[; ;newmain.c: 9: ultra();
+"9
 [e ( _ultra ..  ]
-[; ;newmain.c: 13: LockMotor();
-"13
+[; ;newmain.c: 10: LockMotor();
+"10
 [e ( _LockMotor ..  ]
-"14
+[; ;newmain.c: 11: return;
+"11
+[e $UE 557  ]
+"12
 }
 [e :U 558 ]
-"9
+"8
 [e $U 559  ]
 [e :U 560 ]
-[; ;newmain.c: 14: }
-[; ;newmain.c: 15: }
-"15
+[; ;newmain.c: 12: }
+[; ;newmain.c: 13: }
+"13
 [e :UE 557 ]
 }
